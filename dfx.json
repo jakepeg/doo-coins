@@ -1,0 +1,16 @@
+{
+  "canisters": {
+    "doocoins": {
+      "main": "src/backend/doocoins/Main.mo"
+    },
+    "www": {
+      "dependencies": [
+        "doocoins"
+      ],
+      "type": "assets",
+      "source": [
+        "public"
+      ]
+    }
+  }
+}

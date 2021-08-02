@@ -1,0 +1,100 @@
+2021/07/26-10:42:26.223962 10766fe00 RocksDB version: 6.12.7
+2021/07/26-10:42:26.224588 10766fe00 Git sha rocksdb_build_git_sha:@0@
+2021/07/26-10:42:26.224591 10766fe00 Compile date Feb 16 2021
+2021/07/26-10:42:26.224620 10766fe00 DB SUMMARY
+2021/07/26-10:42:26.224624 10766fe00 DB Session ID:  C4MKOB1PHYW6XR6559BD
+2021/07/26-10:42:26.224751 10766fe00 CURRENT file:  CURRENT
+2021/07/26-10:42:26.224754 10766fe00 IDENTITY file:  IDENTITY
+2021/07/26-10:42:26.224762 10766fe00 MANIFEST file:  MANIFEST-000004 size: 3977 Bytes
+2021/07/26-10:42:26.224764 10766fe00 SST files in /Users/Dev/Dev/doocoins/.dfx/state/replicated_state/node-100/ic_consensus_pool/consensus dir, Total Num: 11, files: 000033.sst 000035.sst 000037.sst 000039.sst 000041.sst 000043.sst 000045.sst 000047.sst 000049.sst 
+2021/07/26-10:42:26.224766 10766fe00 Write Ahead Log file in /Users/Dev/Dev/doocoins/.dfx/state/replicated_state/node-100/ic_consensus_pool/consensus: 000003.log size: 341417 ; 000031.log size: 162703 ; 
+2021/07/26-10:42:26.224770 10766fe00                         Options.error_if_exists: 0
+2021/07/26-10:42:26.224771 10766fe00                       Options.create_if_missing: 1
+2021/07/26-10:42:26.224772 10766fe00                         Options.paranoid_checks: 1
+2021/07/26-10:42:26.224773 10766fe00                                     Options.env: 0x103abdd88
+2021/07/26-10:42:26.224776 10766fe00                                      Options.fs: Posix File System
+2021/07/26-10:42:26.224777 10766fe00                                Options.info_log: 0x7fa559444d20
+2021/07/26-10:42:26.224778 10766fe00                Options.max_file_opening_threads: 16
+2021/07/26-10:42:26.224780 10766fe00                              Options.statistics: 0x0
+2021/07/26-10:42:26.224781 10766fe00                               Options.use_fsync: 1
+2021/07/26-10:42:26.224782 10766fe00                       Options.max_log_file_size: 0
+2021/07/26-10:42:26.224782 10766fe00                  Options.max_manifest_file_size: 1073741824
+2021/07/26-10:42:26.224784 10766fe00                   Options.log_file_time_to_roll: 0
+2021/07/26-10:42:26.224784 10766fe00                       Options.keep_log_file_num: 1000
+2021/07/26-10:42:26.224785 10766fe00                    Options.recycle_log_file_num: 0
+2021/07/26-10:42:26.224788 10766fe00                         Options.allow_fallocate: 1
+2021/07/26-10:42:26.224789 10766fe00                        Options.allow_mmap_reads: 0
+2021/07/26-10:42:26.224790 10766fe00                       Options.allow_mmap_writes: 0
+2021/07/26-10:42:26.224791 10766fe00                        Options.use_direct_reads: 0
+2021/07/26-10:42:26.224792 10766fe00                        Options.use_direct_io_for_flush_and_compaction: 0
+2021/07/26-10:42:26.224793 10766fe00          Options.create_missing_column_families: 1
+2021/07/26-10:42:26.224794 10766fe00                              Options.db_log_dir: 
+2021/07/26-10:42:26.224795 10766fe00                                 Options.wal_dir: /Users/Dev/Dev/doocoins/.dfx/state/replicated_state/node-100/ic_consensus_pool/consensus
+2021/07/26-10:42:26.224796 10766fe00                Options.table_cache_numshardbits: 6
+2021/07/26-10:42:26.224797 10766fe00                         Options.WAL_ttl_seconds: 0
+2021/07/26-10:42:26.224798 10766fe00                       Options.WAL_size_limit_MB: 0
+2021/07/26-10:42:26.224798 10766fe00                        Options.max_write_batch_group_size_bytes: 1048576
+2021/07/26-10:42:26.224800 10766fe00             Options.manifest_preallocation_size: 4194304
+2021/07/26-10:42:26.224800 10766fe00                     Options.is_fd_close_on_exec: 1
+2021/07/26-10:42:26.224801 10766fe00                   Options.advise_random_on_open: 1
+2021/07/26-10:42:26.224802 10766fe00                    Options.db_write_buffer_size: 0
+2021/07/26-10:42:26.224803 10766fe00                    Options.write_buffer_manager: 0x7fa559444c80
+2021/07/26-10:42:26.224804 10766fe00         Options.access_hint_on_compaction_start: 1
+2021/07/26-10:42:26.224805 10766fe00  Options.new_table_reader_for_compaction_inputs: 0
+2021/07/26-10:42:26.224806 10766fe00           Options.random_access_max_buffer_size: 1048576
+2021/07/26-10:42:26.224832 10766fe00                      Options.use_adaptive_mutex: 0
+2021/07/26-10:42:26.224834 10766fe00                            Options.rate_limiter: 0x0
+2021/07/26-10:42:26.224837 10766fe00     Options.sst_file_manager.rate_bytes_per_sec: 0
+2021/07/26-10:42:26.224838 10766fe00                       Options.wal_recovery_mode: 2
+2021/07/26-10:42:26.224839 10766fe00                  Options.enable_thread_tracking: 0
+2021/07/26-10:42:26.224840 10766fe00                  Options.enable_pipelined_write: 0
+2021/07/26-10:42:26.224841 10766fe00                  Options.unordered_write: 0
+2021/07/26-10:42:26.224842 10766fe00         Options.allow_concurrent_memtable_write: 1
+2021/07/26-10:42:26.224843 10766fe00      Options.enable_write_thread_adaptive_yield: 1
+2021/07/26-10:42:26.224844 10766fe00             Options.write_thread_max_yield_usec: 100
+2021/07/26-10:42:26.224845 10766fe00            Options.write_thread_slow_yield_usec: 3
+2021/07/26-10:42:26.224846 10766fe00                               Options.row_cache: None
+2021/07/26-10:42:26.224847 10766fe00                              Options.wal_filter: None
+2021/07/26-10:42:26.224850 10766fe00             Options.avoid_flush_during_recovery: 0
+2021/07/26-10:42:26.224850 10766fe00             Options.allow_ingest_behind: 0
+2021/07/26-10:42:26.224851 10766fe00             Options.preserve_deletes: 0
+2021/07/26-10:42:26.224852 10766fe00             Options.two_write_queues: 0
+2021/07/26-10:42:26.224853 10766fe00             Options.manual_wal_flush: 0
+2021/07/26-10:42:26.224854 10766fe00             Options.atomic_flush: 0
+2021/07/26-10:42:26.224855 10766fe00             Options.avoid_unnecessary_blocking_io: 0
+2021/07/26-10:42:26.224856 10766fe00                 Options.persist_stats_to_disk: 0
+2021/07/26-10:42:26.224857 10766fe00                 Options.write_dbid_to_manifest: 0
+2021/07/26-10:42:26.224858 10766fe00                 Options.log_readahead_size: 0
+2021/07/26-10:42:26.224859 10766fe00                 Options.file_checksum_gen_factory: Unknown
+2021/07/26-10:42:26.224862 10766fe00                 Options.best_efforts_recovery: 0
+2021/07/26-10:42:26.224862 10766fe00                Options.max_bgerror_resume_count: 2147483647
+2021/07/26-10:42:26.224864 10766fe00            Options.bgerror_resume_retry_interval: 1000000
+2021/07/26-10:42:26.224865 10766fe00             Options.max_background_jobs: 2
+2021/07/26-10:42:26.224865 10766fe00             Options.max_background_compactions: -1
+2021/07/26-10:42:26.224866 10766fe00             Options.max_subcompactions: 1
+2021/07/26-10:42:26.224867 10766fe00             Options.avoid_flush_during_shutdown: 0
+2021/07/26-10:42:26.224868 10766fe00           Options.writable_file_max_buffer_size: 1048576
+2021/07/26-10:42:26.224869 10766fe00             Options.delayed_write_rate : 16777216
+2021/07/26-10:42:26.224870 10766fe00             Options.max_total_wal_size: 0
+2021/07/26-10:42:26.224871 10766fe00             Options.delete_obsolete_files_period_micros: 21600000000
+2021/07/26-10:42:26.224872 10766fe00                   Options.stats_dump_period_sec: 600
+2021/07/26-10:42:26.224873 10766fe00                 Options.stats_persist_period_sec: 600
+2021/07/26-10:42:26.224874 10766fe00                 Options.stats_history_buffer_size: 1048576
+2021/07/26-10:42:26.224875 10766fe00                          Options.max_open_files: -1
+2021/07/26-10:42:26.224876 10766fe00                          Options.bytes_per_sync: 0
+2021/07/26-10:42:26.224877 10766fe00                      Options.wal_bytes_per_sync: 0
+2021/07/26-10:42:26.224878 10766fe00                   Options.strict_bytes_per_sync: 0
+2021/07/26-10:42:26.224879 10766fe00       Options.compaction_readahead_size: 0
+2021/07/26-10:42:26.224880 10766fe00                  Options.max_background_flushes: -1
+2021/07/26-10:42:26.224881 10766fe00 Compression algorithms supported:
+2021/07/26-10:42:26.224884 10766fe00 	kZSTD supported: 1
+2021/07/26-10:42:26.224885 10766fe00 	kZlibCompression supported: 1
+2021/07/26-10:42:26.224887 10766fe00 	kXpressCompression supported: 0
+2021/07/26-10:42:26.224903 10766fe00 	kSnappyCompression supported: 1
+2021/07/26-10:42:26.224904 10766fe00 	kZSTDNotFinalCompression supported: 1
+2021/07/26-10:42:26.224905 10766fe00 	kLZ4HCCompression supported: 1
+2021/07/26-10:42:26.224906 10766fe00 	kLZ4Compression supported: 1
+2021/07/26-10:42:26.224907 10766fe00 	kBZip2Compression supported: 1
+2021/07/26-10:42:26.224912 10766fe00 Fast CRC32 supported: Supported on x86
+2021/07/26-10:42:26.225044 10766fe00 [db/db_impl/db_impl.cc:438] Shutdown: canceling all background work
+2021/07/26-10:42:26.225064 10766fe00 [db/db_impl/db_impl.cc:614] Shutdown complete
