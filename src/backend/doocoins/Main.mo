@@ -23,12 +23,20 @@ actor {
     // return store.put(key, val);
   };
 
-  public query func get(key:Text): async ?Text {
+  public query func get(key: Text): async ?Text {
     return store.get(key);
+  };
+
+  public func removeChild(key: Text) {
+    return store.delete(key);
   };
 
   // public query func list(): async Child {
   //   return Iter.toArray(store.entries());
+  // };
+
+  // public shared(msg) func getChildList(): async [Child] {
+  //   return store.entries();
   // };
 
   system func preupgrade() {
