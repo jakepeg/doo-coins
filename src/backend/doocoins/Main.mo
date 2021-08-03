@@ -10,11 +10,31 @@ actor {
   type Child = Types.Child;
   type Parent = Types.Parent;
 
-  stable var entries : [(Text, Text)] = [];
+  stable var entries : [(Text, Text, Nat)] = [];
 
-  let store: HM.HashMap<Text, Text> = HM.fromIter(entries.vals(), 16, Text.equal, Text.hash);
+  let store: HM.HashMap<Text, Text, Nat> = HM.fromIter(entries.vals(), 16, Text.equal, Text.hash);
 
-  /// returns null if there was no previous value, else returns previous value
+  // how many children
+  public query func length(): async Nat {
+    return store.size();
+  };
+
+  // Read the wallet balance
+  // TODO - need to specify which child this is
+  public query func getBalance() : async Nat {
+    return walletBalance;
+  };
+
+  // update the wallet balance
+  // TODO - need to specify which child this is
+  public func updateBalance(n: Nat) : async () {
+    return currentValue := n;
+  };
+
+
+  // add a child
+  // TODO - init wallet balance zero
+  // returns null if there was no previous value, else returns previous value
   public shared func set(key:Text,val:Text): async ?Text {
     if(key == ""){
       throw Error.reject("Empty string is not a valid key");
@@ -31,11 +51,11 @@ actor {
     return store.delete(key);
   };
 
-  // public query func list(): async Child {
-  //   return Iter.toArray(store.entries());
-  // };
+  public query func list(): async Array {
+    return Iter.toArray(store.entries());
+  };
 
-  // public shared(msg) func getChildList(): async [Child] {
+  // public query func getChildList(): async Iter {
   //   return store.entries();
   // };
 

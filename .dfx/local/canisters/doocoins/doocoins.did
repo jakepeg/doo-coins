@@ -1,5 +1,6 @@
 service : {
   get: (text) -> (opt text) query;
+  length: () -> (nat) query;
   removeChild: (text) -> () oneway;
   set: (text, text) -> (opt text);
 }
