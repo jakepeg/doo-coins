@@ -38,7 +38,7 @@ const ChildList = () => {
           <label htmlFor="child_id">
             <input type="text" name="child_id" id="child_id" />
           </label>
-          <button type="submit">Search</button>
+          <button type="submit">Delete</button>
         </form>
       </section>
 

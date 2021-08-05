@@ -1,6 +1,10 @@
 service : {
-  get: (text) -> (opt text) query;
+  addChild: (text, text) -> (opt text);
+  getChild: (text) -> (opt text) query;
+  getChildren: () -> (vec record {
+                            text;
+                            text;
+                          }) query;
   length: () -> (nat) query;
   removeChild: (text) -> () oneway;
-  set: (text, text) -> (opt text);
 }

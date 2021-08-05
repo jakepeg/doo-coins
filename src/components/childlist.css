@@ -1,0 +1,54 @@
+/* Section */
+.section {
+  clear: both;
+  margin: 0px;
+  padding: 0px;
+  height: 200px;
+}
+/* Column */
+.col {
+  background: #fff;
+  display: block;
+  float: left;
+  margin: 1% 0 1% 1.6%;
+}
+.col:first-child {
+  margin-left: 0 !important;
+}
+
+/* Row */
+.row:before,
+.row:after {
+  content: "";
+  display: table;
+}
+.row:after {
+  clear: both;
+}
+.row {
+  zoom: 1; /* For IE 6/7 */
+}
+
+/* Grid */
+.grid_1_of_4 {
+  width: 23.8%;
+}
+.grid_2_of_4 {
+  width: 49.2%;
+}
+.grid_3_of_4 {
+  width: 74.6%;
+}
+.grid_4_of_4 {
+  width: 100%;
+}
+
+/* Full Width below 768 pixels */
+@media only screen and (max-width: 768px) {
+  .col {
+    margin: 1% 0 1% 0%;
+  }
+  [class*="grid_"] {
+    width: 100%;
+  }
+}
