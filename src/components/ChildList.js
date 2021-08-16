@@ -55,11 +55,11 @@ const ChildList = () => {
         {/* <ProfilePic data={image_data} /> */}
 
 {/* BUG with atob. deployment fails, hack = comment out img tag, dfx deploy, then uncomment */}
-          <img
+          {/* <img
               style={{ maxWidth: "75px" }}
               src={atob(image_data)}
               alt="profile"
-            /> 
+            />  */}
           </div>
           <div className="col grid_1_of_4"> Elodie </div>
           <div className="col grid_1_of_4"> DooCoins balance: 0 </div>

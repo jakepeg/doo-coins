@@ -1,4 +1,4 @@
-export default ({ IDL }) => {
+export const idlFactory = ({ IDL }) => {
   return IDL.Service({
     'addChild' : IDL.Func([IDL.Text, IDL.Text], [IDL.Opt(IDL.Text)], []),
     'getChild' : IDL.Func([IDL.Text], [IDL.Opt(IDL.Text)], ['query']),
