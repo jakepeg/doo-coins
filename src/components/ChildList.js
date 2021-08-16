@@ -6,6 +6,7 @@ const image_data = "ZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFBQVNB
 const ChildList = () => {
 
   const [actor, setActor] = React.useState(null);
+  const [myChildren, setChildren] = React.useState({});
 
   React.useEffect(() => {
     import("../actor").then((module) => {
@@ -19,7 +20,8 @@ const ChildList = () => {
       if (!returnedChilren.length) {
         return alert("No children - please add a child to begin");
       }
-      console.log(returnedChilren);
+      setChildren(returnedChilren);
+      console.log(myChildren);
     });
     return false;
   }
@@ -33,6 +35,7 @@ const ChildList = () => {
         return alert("No children with that ID");
       }
 
+      console.log(child);
       console.log(returnedChild);
     });
     return false;
@@ -51,6 +54,7 @@ const ChildList = () => {
 
         {/* <ProfilePic data={image_data} /> */}
 
+{/* BUG with atob. deployment fails, hack = comment out img tag, dfx deploy, then uncomment */}
           <img
               style={{ maxWidth: "75px" }}
               src={atob(image_data)}

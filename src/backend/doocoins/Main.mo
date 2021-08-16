@@ -20,6 +20,7 @@ actor {
   };
 
   // Read the wallet balance
+  
   // TODO - need to specify which child this is
 
   // public query func getBalance() : async Nat {
@@ -32,7 +33,6 @@ actor {
   // public func updateBalance(key:Text,n: Nat) : async () {
   //   return currentValue := n;
   // };
-
 
   // add a child
   // TODO - init wallet balance zero
