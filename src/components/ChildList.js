@@ -9,9 +9,8 @@ const ChildList = () => {
   const [myChildren, setChildren] = React.useState({});
 
   React.useEffect(() => {
-    import("../actor").then((module) => {
-      setActor(module.default);
-      getChildren();
+    import("../declarations/doocoins").then((module) => {
+      setActor(module.doocoins);
     });
   }, []);
 

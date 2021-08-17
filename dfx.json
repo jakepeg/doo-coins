@@ -4,13 +4,10 @@
       "main": "src/backend/doocoins/Main.mo"
     },
     "www": {
-      "dependencies": [
-        "doocoins"
-      ],
+      "dependencies": ["doocoins"],
       "type": "assets",
-      "source": [
-        "public"
-      ]
+      "source": ["public"]
     }
-  }
+  },
+  "dfx": "0.8.0"
 }

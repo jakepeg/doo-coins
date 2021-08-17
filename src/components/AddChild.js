@@ -8,8 +8,8 @@ const AddChild = () => {
   const [actor, setActor] = React.useState(null);
 
   React.useEffect(() => {
-    import("../actor").then((module) => {
-      setActor(module.default);
+    import("../declarations/doocoins").then((module) => {
+      setActor(module.doocoins);
     });
   }, []);
 

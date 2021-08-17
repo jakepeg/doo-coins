@@ -14,13 +14,13 @@ actor {
 
   let store: HM.HashMap<Text, Text> = HM.fromIter(entries.vals(), 16, Text.equal, Text.hash);
 
-  // how many children
+  // count children
   public query func length(): async Nat {
     return store.size();
   };
 
   // Read the wallet balance
-  
+
   // TODO - need to specify which child this is
 
   // public query func getBalance() : async Nat {

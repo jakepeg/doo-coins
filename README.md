@@ -28,7 +28,7 @@ Canister calls
 
 - the following doesn't work, need to figure out how to pass array as argument
 
-> dfx canister call doocoins addChild '("4c37e74-d0e0-4ad0-40f2-fdba7a1cf135", "["Quin",0]")'
+> dfx canister call doocoins addChild '("4c37e74-d0e0-4ad0-40f2-fdba7a1cf135", "Quin")'
 
 > dfx canister call doocoins getChild "4c37e74-d0e0-4ad0-40f2-fdba7a1cf135"
 
