@@ -5,6 +5,12 @@
   padding: 0px;
   height: 200px;
 }
+
+/* Column */
+ul {
+  list-style-type: none;
+}
+
 /* Column */
 .col {
   background: #fff;

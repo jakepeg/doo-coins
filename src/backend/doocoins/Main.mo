@@ -34,15 +34,12 @@ actor {
   //   return currentValue := n;
   // };
 
-  // add a child
-  // TODO - init wallet balance zero
-  // returns null if there was no previous value, else returns previous value
+  // add a child TODO - init wallet balance zero
   public shared func addChild(key:Text,val:Text): async ?Text {
     if(key == ""){
       throw Error.reject("Empty string is not a valid key");
     };
     return store.replace(key, val);
-    // return store.put(key, val);
   };
 
   public query func getChild(key: Text): async ?Text {
