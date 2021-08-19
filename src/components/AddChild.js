@@ -1,8 +1,6 @@
 import * as React from "react";
 import uuid from 'react-uuid'
 
-
-
 const AddChild = () => {
   const [image, setImage] = React.useState("");
   const [actor, setActor] = React.useState(null);

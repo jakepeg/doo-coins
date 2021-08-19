@@ -1,9 +1,11 @@
 import * as React from "react";
 import './childlist.css';
 
-const ChildList = () => {
+const ChildList = (props) => {
 
   const [actor, setActor] = React.useState(null);
+  // const actor = props.myactor;
+  console.log(props.myactor);
   const [myChildren, setChildren] = React.useState([]);
 
   function getMyChildren() {
