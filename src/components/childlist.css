@@ -6,9 +6,8 @@
   height: 200px;
 }
 
-/* Column */
-ul {
-  list-style-type: none;
+.child-list {
+  max-width: 600px;
 }
 
 /* Column */

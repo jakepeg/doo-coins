@@ -1,7 +1,8 @@
 import * as React from "react";
 import ChildList from "../components/ChildList";
 import AddChild from "../components/AddChild";
-import ImageUpload from "../components/ImageUpload";
+import RemoveChild from "../components/RemoveChild";
+
 
 const IndexPage = () => {
   const [actor, setActor] = React.useState(null);
@@ -22,8 +23,13 @@ const IndexPage = () => {
       </section>
       <section>
         <AddChild />
-        <ImageUpload />
       </section>
+
+      <section>
+        <RemoveChild />
+      </section>
+
+
     </>
   );
 };

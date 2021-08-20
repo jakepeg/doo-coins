@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 
-function ImageUpload() {
+function ImageUpload(props) {
+  // const childID = 'ashasdkjahsd'
   const [image, setImage] = useState('')
   const [loading, setLoading] = useState(false)
   const uploadImage = async e => {
@@ -8,6 +9,9 @@ function ImageUpload() {
     const data = new FormData()
     data.append('file', files[0])
     data.append('upload_preset', 'doozone')
+    // data.append('allowed_formats', 'jpg')
+    // data.append('format', 'jpg')
+    data.append("public_id", props.child_id)
     setLoading(true)
     const res = await fetch(
       'https://api.cloudinary.com/v1_1/jakepeg/image/upload',
@@ -24,13 +28,15 @@ function ImageUpload() {
 
   return (
     <div>
+    <label htmlFor="file">
+    Profile picture<br /><br />
       <input 
         type="file"
         name="file"
         placeholder="Upload an image"
         onChange={uploadImage}
-      />
-
+      /><br />
+      </label>
       {loading ? (
         <h3>LOADING IMAGE...</h3>
       ) : (
