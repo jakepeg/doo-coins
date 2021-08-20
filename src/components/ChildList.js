@@ -3,30 +3,7 @@ import './childlist.css';
 
 const ChildList = (props) => {
 
-  const [actor, setActor] = React.useState(null);
-  // const actor = props.myactor;
-  console.log(props.myactor);
-  const [myChildren, setChildren] = React.useState([]);
 
-  function getMyChildren() {
-    actor?.getChildren().then((returnedChilren) => {
-      if (!returnedChilren.length) {
-        return alert("No children - please add a child to begin");
-      }
-      setChildren(returnedChilren);
-      console.log(myChildren);
-    });
-    return false;
-  }
-
-  React.useEffect(() => {
-    import("../declarations/doocoins")
-    .then((module) => {setActor(module.doocoins)})
-  }, []);
-
-  React.useEffect(() => {
-    getMyChildren();
-  }, [actor]);
 
   // function getChild(e) {
   //   e.preventDefault();
@@ -49,8 +26,8 @@ const ChildList = (props) => {
       <div>
         <h2>My Children</h2>
         {
-            myChildren.map((child) => 
-<div className="row child-list">
+            props.myChildren.map((child, index) => 
+<div className="row child-list" key={index}>
           <div className="col grid_1_of_4"><img src={`https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_25,w_50/v1629446547/doozone/${child.slice(0, 1)}.jpg`} /></div>
           <div className="col grid_1_of_4">{child.slice(1, 2).toString().substring(2, child.slice(1, 2).toString().length - 4)}</div>
           <div className="col grid_1_of_4"> Balance: 0 </div>
