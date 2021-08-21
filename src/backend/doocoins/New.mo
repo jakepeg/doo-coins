@@ -2,6 +2,9 @@ import Trie "mo:base/Trie";
 import Hash "mo:base/Hash";
 import Nat "mo:base/Nat";
 
+// this is something I started to work on but never completed - 
+// Need to work out better data structure
+
 actor DooCoins {
     type ChildProfile = {
         displayName: ?Text;
