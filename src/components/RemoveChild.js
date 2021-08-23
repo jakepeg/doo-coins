@@ -26,9 +26,6 @@ const ChildList = () => {
 
   return (
     <>
-      <title>DooCoins - Remove Child</title>
-      <h1>Remove Child</h1>
-
       <section>
         <h2>Look up a child to remove</h2>
         <form onSubmit={getChild}>
@@ -38,8 +35,6 @@ const ChildList = () => {
           <button type="submit">Delete</button>
         </form>
       </section>
-
-
     </>
   );
 };

@@ -23,7 +23,7 @@ const ChildList = (props) => {
   // /${activity.image}`} alt={activity.name}
 
   return (
-      <div>
+      <>
         <h2>My Children</h2>
         {
             props.myChildren.map((child, index) => 
@@ -45,7 +45,7 @@ const ChildList = (props) => {
             )
           }
         </ul> */}
-      </div>
+      </>
   );
 };
 

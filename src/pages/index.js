@@ -63,8 +63,10 @@ const IndexPage = () => {
       </div>
 
       <div className="main">
-        <ChildList
-        myChildren = {myChildren} />
+        <section>
+          <ChildList
+          myChildren = {myChildren} />
+        </section>
         <AddChild 
           handleAddChild = {handleAddChild} 
           childID = {childID}
