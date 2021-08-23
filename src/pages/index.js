@@ -2,7 +2,7 @@ import * as React from "react";
 import ChildList from "../components/ChildList";
 import AddChild from "../components/AddChild";
 import uuid from "react-uuid";
-// import RemoveChild from "../components/RemoveChild";
+import RemoveChild from "../components/RemoveChild";
 
 const IndexPage = () => {
 
@@ -60,7 +60,7 @@ const IndexPage = () => {
           handleAddChild = {handleAddChild} 
           childID = {childID}
          />
-        {/* <RemoveChild /> */}
+        <RemoveChild />
     </>
   );
 };

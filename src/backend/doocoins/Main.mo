@@ -4,6 +4,7 @@ import Array "mo:base/Array";
 import Error "mo:base/Error";
 import Iter "mo:base/Iter";
 import Types "./Types";
+import Principal "mo:base/Principal";
 
 actor {
 
@@ -13,6 +14,12 @@ actor {
   stable var entries : [(Text, Text)] = [];
 
   let store: HM.HashMap<Text, Text> = HM.fromIter(entries.vals(), 16, Text.equal, Text.hash);
+
+  // Parent ID
+  public shared(msg) func getParentId(): async Principal {
+    return msg.caller;
+  };
+
 
   // count children
   public query func length(): async Nat {

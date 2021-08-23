@@ -8,6 +8,7 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'length' : IDL.Func([], [IDL.Nat], ['query']),
+    'parent' : IDL.Func([], [IDL.Principal], []),
     'removeChild' : IDL.Func([IDL.Text], [], ['oneway']),
   });
 };
