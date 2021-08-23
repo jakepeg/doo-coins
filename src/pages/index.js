@@ -1,8 +1,11 @@
 import * as React from "react";
+import { Link } from "gatsby";
 import ChildList from "../components/ChildList";
 import AddChild from "../components/AddChild";
 import uuid from "react-uuid";
 import RemoveChild from "../components/RemoveChild";
+import "./index.css";
+import logo from '../images/logo.svg';
 
 const IndexPage = () => {
 
@@ -53,7 +56,13 @@ const IndexPage = () => {
   return (
     <>
       <title>DooCoins</title>
-      <h1>DooCoins</h1>
+      <div className="sidenav">
+        <Link className="logo-group" to="/">
+          <img src={logo} className="logo-img" alt="doo logo" />
+        </Link>
+      </div>
+
+      <div className="main">
         <ChildList
         myChildren = {myChildren} />
         <AddChild 
@@ -61,6 +70,7 @@ const IndexPage = () => {
           childID = {childID}
          />
         <RemoveChild />
+      </div>
     </>
   );
 };
