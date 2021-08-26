@@ -7,8 +7,8 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text))],
         ['query'],
       ),
+    'getParentId' : IDL.Func([], [IDL.Principal], []),
     'length' : IDL.Func([], [IDL.Nat], ['query']),
-    'parent' : IDL.Func([], [IDL.Principal], []),
     'removeChild' : IDL.Func([IDL.Text], [], ['oneway']),
   });
 };

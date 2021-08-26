@@ -5,7 +5,7 @@ service : {
                             text;
                             text;
                           }) query;
+  getParentId: () -> (principal);
   length: () -> (nat) query;
-  parent: () -> (principal);
   removeChild: (text) -> () oneway;
 }

@@ -8,5 +8,7 @@ module {
   public type Parent = {
     name: Text;
     parent_id: Principal;
+    children : [Child];
   };
 }
+
