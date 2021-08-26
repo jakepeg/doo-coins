@@ -1,19 +1,22 @@
 import * as React from "react";
+import { useRef } from 'react';
 import { Link } from "gatsby";
+import uuid from "react-uuid";
+import Flippy, { FrontSide, BackSide } from 'react-flippy';
+import Header from "../components/Header";
 import ChildList from "../components/ChildList";
 import AddChild from "../components/AddChild";
-import uuid from "react-uuid";
-import RemoveChild from "../components/RemoveChild";
+// import RemoveChild from "../components/RemoveChild";
 import "./index.css";
 import logo from '../images/logo.svg';
 
-const IndexPage = () => {
 
+const IndexPage = () => {
   const [actor, setActor] = React.useState(null);
   const [myChildren, setChildren] = React.useState([]);
   const [newChild, setNewChild] = React.useState(null);
-
   const childID = uuid();
+  const ref = useRef();
 
   function getMyChildren() {
     actor?.getChildren().then((returnedChilren) => {
@@ -52,7 +55,6 @@ const IndexPage = () => {
     getMyChildren();
   }, [actor, newChild]);
 
-
   return (
     <>
       <title>DooCoins</title>
@@ -61,17 +63,38 @@ const IndexPage = () => {
           <img src={logo} className="logo-img" alt="doo logo" />
         </Link>
       </div>
-
+      <Header />
       <div className="main">
-        <section>
-          <ChildList
-          myChildren = {myChildren} />
-        </section>
-        <AddChild 
-          handleAddChild = {handleAddChild} 
-          childID = {childID}
-         />
-        <RemoveChild />
+        <Flippy
+        flipOnClick={false}
+        flipDirection="horizontal"
+        ref={ref}
+        style={{ width: '600px', boxShadow: '0, 0, 0, 0' }}
+        >
+          <FrontSide>
+            <section>
+              <div className="panel-header">
+                <h2>My children</h2>
+                <h2 className="panel-header-link" onClick={() => { ref.current.toggle(); }}>Add a child</h2> 
+              </div>
+              <ChildList
+              myChildren = {myChildren} />
+            </section>
+          </FrontSide>
+          <BackSide>
+            <section>
+              <div className="panel-header">
+                <h2>Add a child</h2>
+                <h2 className="panel-header-link" onClick={() => { ref.current.toggle(); }}>My children</h2> 
+              </div>
+              <AddChild 
+                handleAddChild = {handleAddChild} 
+                childID = {childID}
+              />
+            </section>
+          </BackSide>
+        </Flippy>
+        {/* <RemoveChild /> */}
       </div>
     </>
   );

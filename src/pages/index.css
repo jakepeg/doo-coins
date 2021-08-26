@@ -7,7 +7,7 @@ body {
   height: 100%;
   width: 60px;
   position: fixed;
-  z-index: 1;
+  z-index: 20;
   top: 0;
   left: 0;
   background-color: hsl(204, 75%, 17%);
@@ -17,18 +17,98 @@ body {
 
 .main {
   margin-left: 60px;
+  margin-top: 88px;
   padding: 0px 10px;
+}
+
+.header {
+  height: 30px;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+  z-index: 10;
 }
 
 section {
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
-  width: 50%;
+  width: 400px;
   padding: 3px 20px 20px 20px;
   margin: 20px;
 }
 
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel-header-link {
+  text-decoration: underline;
+  color: hsl(184, 81%, 37%);
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: 400;
+  margin-top: 22px;
+}
+
+p {
+  font-size: 1.2em;
+}
+
 h2 {
   font-weight: 200;
+}
+
+.play-img {
+  float: right;
+  margin: 16px 0 -12px 0;
+}
+
+.profile-img {
+  border: 3px solid;
+  border-radius: 28px;
+  border-color: hsl(184, 81%, 37%);
+  vertical-align: middle;
+}
+
+.logo-img {
+  width: 85%;
+  margin: -10px 0 0 5px;
+}
+
+.list-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: hsl(0, 0%, 100%);
+  vertical-align: middle;
+}
+
+.list-row:hover {
+  background-color: hsl(205, 67%, 96%);
+  cursor: pointer;
+}
+
+.list-col-image {
+  width: 50px;
+}
+
+.list-col-name {
+  width: 180px;
+}
+
+.list-col-name p {
+  margin-top: 15px;
+}
+
+.flippy-front,
+.flippy-back {
+  padding: 0em !important;
+  box-shadow: 0 0 0 0 rgb(0 0 0 / 20%) !important;
 }

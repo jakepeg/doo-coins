@@ -1,20 +1,16 @@
 /* Section */
-.section {
+/* .section {
   clear: both;
   margin: 0px;
   padding: 0px;
   height: 200px;
-}
-
-.child-list {
-  max-width: 600px;
-}
+} */
 
 /* Column */
 .col {
-  background: #fff;
-  display: block;
-  float: left;
+  /* background: #fff; */
+  display: inline-block;
+  /* float: left; */
   margin: 1% 0 1% 1.6%;
 }
 .col:first-child {
