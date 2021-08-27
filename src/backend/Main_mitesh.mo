@@ -12,23 +12,39 @@ import Types "./Types"
 actor trial {
     stable var profiles : Types.Profile = Trie.empty();
     stable var childNumber : Nat = 1;
+    //for keeping the child to tasks mapping
     stable var childToTasks : Types.TaskMap = Trie.empty();
     stable var childToTaskNumber: Trie.Trie<Text,Nat> = Trie.empty();
 
-    public shared(msg) func addChild(child:Types.ChildCall):async Result.Result<(),Types.Error>{
+    //for keeping the child to transactions mapping
+    stable var childToTransactions:Types.TransactionMap = Trie.empty();
+    stable var childToTransactionNumber : Trie.Trie<Text,Nat> = Trie.empty();
+
+    //for keeping the child to goals mapping
+    stable var childToGoals : Types.GoalMap = Trie.empty();
+    stable var childToGoalNumber : Trie.Trie<Text,Nat> = Trie.empty();
+
+    //for setting up child's current goal
+    stable var childToCurrentGoal:Trie.Trie<Text,Nat> = Trie.empty();
+
+    //for mapping child's doocoins balance to child
+    stable var childToBalance:Trie.Trie<Text,Nat> = Trie.empty(); 
+
+    //creating a new child record
+    //----------------------------------------------------------------------------------------------------
+    public shared(msg) func addChild(child:Types.ChildCall):async Result.Result<Types.Child,Types.Error>{
         let callerId=msg.caller;
-        
         let childId = Principal.toText(callerId) # "-" # Nat.toText(childNumber);
         childNumber +=1;
         let finalChild:Types.Child = {
             name = child.name;
-            balance = ?0;
             id = childId;
+            
         };
 
         //Initializing task number to this child
 
-        let (newChildToTaskNumber,existing)= Trie.put(
+        let (newChildToTaskNumber,existingTask)= Trie.put(
             childToTaskNumber,
             keyText(childId),
             Text.equal,
@@ -36,6 +52,38 @@ actor trial {
         );
 
         childToTaskNumber := newChildToTaskNumber;
+
+        
+        
+        let (childtobalancemap,existing) = Trie.put(
+            childToBalance,
+            keyText(childId),
+            Text.equal,
+            0
+        );
+        childToBalance:=childtobalancemap;
+
+        //Initializing goal number to this child
+
+        let (newChildToGoalNumber,existingGoal)= Trie.put(
+            childToGoalNumber,
+            keyText(childId),
+            Text.equal,
+            1
+        );
+
+        childToGoalNumber := newChildToGoalNumber;
+
+        //Initializing transaction number to this child
+        let (newChildToTransactionNumber,existingTransaction)= Trie.put(
+            childToTransactionNumber,
+            keyText(childId),
+            Text.equal,
+            1
+        );
+
+        childToTransactionNumber := newChildToTransactionNumber;
+
 
         let newProfiles = Trie.put2D(
             profiles,
@@ -46,12 +94,17 @@ actor trial {
             finalChild
         );
         profiles:=newProfiles;
-        return #ok(());
+        return #ok(finalChild);
     };
 
-    public shared(msg) func assignTaskToChildren(task:Types.Task,childId:Text):async Result.Result<(),Types.Error>{
-        let callerId=msg.caller;
 
+    //Assigning the task to the children
+    //Parametes needed: childId and Task
+    //----------------------------------------------------------------------------------------------------
+
+    public shared(msg) func assignTaskToChildren(task:Types.TaskCall,childId:Text):async Result.Result<[Types.Task],Types.Error>{
+        let callerId=msg.caller;
+        
         //Getting pointer of current task number of the child
         let currentTaskNumberPointer = Trie.find(
             childToTaskNumber,
@@ -60,7 +113,11 @@ actor trial {
         );
         
         let finalPointer:Nat = Option.get(currentTaskNumberPointer,0);
-
+        let taskFinal:Types.Task ={
+            name = task.name;
+            value = task.value;
+            id = finalPointer;
+        } ;
         switch(finalPointer){
             case 0{
                 #err(#NotFound);
@@ -81,16 +138,27 @@ actor trial {
                     Text.equal,
                     keyNat(finalPointer),
                     Nat.equal,
-                    task
+                    taskFinal
                 );
 
                 childToTasks:= newChildToTasks;
-                #ok(());
-            };
-        };
+                
+                let myChildTasks = Trie.find(
+                    childToTasks,
+                    keyText(childId),
+                    Text.equal
+                );
+                let myChildTasksFormatted = Option.get(myChildTasks,Trie.empty());
+                return #ok(Trie.toArray(myChildTasksFormatted,extractTasks));
+                    };
+                };
         
         
     };
+
+    //Function to get all the children
+    //
+    //----------------------------------------------------------------------------------------------------
     
     public shared(msg) func getMyChildren():async Result.Result<[Types.Child],Types.Error>{
         let callerId=msg.caller;
@@ -104,6 +172,10 @@ actor trial {
         return #ok(Trie.toArray(allChildrenFormatted,extractChildren));  
     };
 
+    //Function to get the all of the child's task
+    //Parametes needed: childId
+    //----------------------------------------------------------------------------------------------------
+
     public shared(msg) func getMyChildTasks(childId:Text):async Result.Result<[Types.Task],Types.Error>{
         let callerId = msg.caller;
 
@@ -115,6 +187,270 @@ actor trial {
         let myChildTasksFormatted = Option.get(myChildTasks,Trie.empty());
         return #ok(Trie.toArray(myChildTasksFormatted,extractTasks));
     };
+
+    //Function to set the child's goals
+    //Parametes needed: childId and Goal
+    //----------------------------------------------------------------------------------------------------
+
+    public shared(msg) func assignGoalToChildren(goal:Types.GoalCall,childId:Text):async Result.Result<[Types.Goal],Types.Error>{
+        let callerId=msg.caller;
+
+        //Getting pointer of current task number of the child
+        let currentGoalNumberPointer = Trie.find(
+            childToGoalNumber,
+            keyText(childId),
+            Text.equal
+        );
+        
+        let finalPointer:Nat = Option.get(currentGoalNumberPointer,0);
+
+        let finalGoalObject: Types.Goal= {
+            name = goal.name;
+            value = goal.value;
+            id = finalPointer;
+        };
+
+        switch(finalPointer){
+            case 0{
+                #err(#NotFound);
+            };
+            case (v){
+                let (newMap,existing) = Trie.put(
+                    childToGoalNumber,
+                    keyText(childId),
+                    Text.equal,
+                    finalPointer+1
+                );
+
+                childToGoalNumber:= newMap;
+
+                let newChildToGoals=Trie.put2D(
+                    childToGoals, 
+                    keyText(childId),
+                    Text.equal,
+                    keyNat(finalPointer),
+                    Nat.equal,
+                    finalGoalObject
+                );
+
+                childToGoals:= newChildToGoals;
+                let myChildGoals = Trie.find(
+                    childToGoals,
+                    keyText(childId),
+                    Text.equal
+                );
+                let myChildGoalsFormatted = Option.get(myChildGoals,Trie.empty());
+                return #ok(Trie.toArray(myChildGoalsFormatted,extractGoals));
+                    };
+                };
+    };
+
+
+    //Function to set the child current goal
+    //Parametes needed: childId and goalId
+    //----------------------------------------------------------------------------------------------------
+
+    public shared(msg) func assignCurrentGoalToChild(childId:Text,goalId:Nat):async Result.Result<(),Types.Error>{
+        let (updateChildToGoalNumber,existing) = Trie.put(
+            childToCurrentGoal,
+            keyText(childId),
+            Text.equal,
+            goalId
+        );
+        childToCurrentGoal:= updateChildToGoalNumber;
+        return #ok(());
+    };
+
+    //Function to get all transactions of a child
+    //
+    //----------------------------------------------------------------------------------------------------
+
+    public  func getMyChildTransactions(childId:Text):async Result.Result<[Types.Transaction],Types.Error>{
+        let myChildTransactions = Trie.find(
+            childToTransactions,
+            keyText(childId),
+            Text.equal
+        );
+        let myChildTransactionsFormatted = Option.get(myChildTransactions,Trie.empty());
+        return #ok(Trie.toArray(myChildTransactionsFormatted,extractTransactions));
+    };
+
+    //Function to get all goals of a child
+    //
+    //----------------------------------------------------------------------------------------------------
+
+    public  func getMyChildGoals(childId:Text):async Result.Result<[Types.Goal],Types.Error>{
+        let myChildGoals = Trie.find(
+            childToGoals,
+            keyText(childId),
+            Text.equal
+        );
+        let myChildGoalsFormatted = Option.get(myChildGoals,Trie.empty());
+        return #ok(Trie.toArray(myChildGoalsFormatted,extractGoals));
+    };
+    
+
+
+    //Function to approve a child's task
+    //Parametes needed: childId and taskId
+    //----------------------------------------------------------------------------------------------------
+
+    public shared(msg) func approveChildTask(childId:Text,taskId:Nat,completedDate:Text):async Result.Result<(),Types.Error>{
+        let callerId=msg.caller;
+
+        let myChildTasks = Trie.find(
+            childToTasks,
+            keyText(childId),
+            Text.equal
+        );
+        
+        let myChildTasksFormatted:Trie.Trie<Nat,Types.Task> = Option.get(myChildTasks,Trie.empty());
+        
+
+        let targetTask = Trie.find(
+            myChildTasksFormatted,
+            keyNat(taskId),
+            Nat.equal
+        );
+        switch(targetTask){
+            case null{
+                #err(#NotFound);
+            };
+            case (?v){
+                let value:Nat = v.value;
+                
+                let (allTransactions,currentPointer)=returnTransactionDetails(childId);
+                let transactionObject:Types.Transaction={
+                    name=v.name;
+                    value=value;
+                    completedDate=completedDate;
+                    transactionType="TASK_CREDIT";
+                    id=currentPointer;
+                };
+                let newChildToTransactionMap = Trie.put2D(
+                    childToTransactions,
+                    keyText(childId),
+                    Text.equal,
+                    keyNat(currentPointer),
+                    Nat.equal,
+                    transactionObject
+                );
+                childToTransactions:=newChildToTransactionMap;
+                let myBalance = await getMyBalance(childId);
+                let currentBalanceFormatted = Nat.add(myBalance,value);
+                let (updatedBalanceMap,existing) = Trie.put(
+                    childToBalance,
+                    keyText(childId),
+                    Text.equal,
+                    currentBalanceFormatted
+                );
+                childToBalance:= updatedBalanceMap;
+                #ok(());
+            };
+        };
+        
+    
+    };
+
+    //Function to claim a child's goal
+    //Parametes needed: childId and goalId
+    //----------------------------------------------------------------------------------------------------
+    public shared(msg) func claimGoal(childId:Text,goalId:Nat,completedDate:Text):async Result.Result<(),Types.Error>{
+        let callerId=msg.caller;
+
+        let myGoals:?Trie.Trie<Nat,Types.Goal> = Trie.find(
+            childToGoals,
+            keyText(childId),
+            Text.equal
+        );
+        
+        let myChildGoalsFormatted:Trie.Trie<Nat,Types.Goal> = Option.get(myGoals,Trie.empty());
+        
+
+        let targetGoal = Trie.find(
+            myChildGoalsFormatted,
+            keyNat(goalId),
+            Nat.equal
+        );
+        switch(targetGoal){
+            case null{
+                #err(#NotFound);
+            };
+            case (?v){
+                let value:Nat = v.value;
+                let myBalance = await getMyBalance(childId);
+                if (value > myBalance){
+                    return #err(#BalanceNotEnough);
+                };
+                let (allTransactions,currentPointer)=returnTransactionDetails(childId);
+                let transactionObject:Types.Transaction={
+                    name=v.name;
+                    value=value;
+                    completedDate=completedDate;
+                    transactionType="GOAL_DEBIT";
+                    id=currentPointer;
+                };
+                
+                let newChildToTransactionMap = Trie.put2D(
+                    childToTransactions,
+                    keyText(childId),
+                    Text.equal,
+                    keyNat(currentPointer),
+                    Nat.equal,
+                    transactionObject
+                );
+                childToTransactions:=newChildToTransactionMap;
+                
+                let currentBalanceFormatted = Nat.sub(myBalance,value);
+                let (updatedBalanceMap,existing) = Trie.put(
+                    childToBalance,
+                    keyText(childId),
+                    Text.equal,
+                    currentBalanceFormatted
+                );
+                childToBalance:= updatedBalanceMap;
+                #ok(());
+            };
+        };
+    };
+
+    //Function to get child's current goal
+    //Parametes needed: childId
+    //----------------------------------------------------------------------------------------------------
+    public  func getMyCurrentGoalNumber(childId:Text):async Nat{
+        let currentGoalNumber = Trie.find(
+            childToCurrentGoal,
+            keyText(childId),
+            Text.equal
+        );
+        let currentGoalNumberFormatted = Option.get(currentGoalNumber,0);
+        return currentGoalNumberFormatted;
+    };
+
+
+    //This method is used to make any updates to the task of the child
+    //Parametes needed: childId, taskNumber and updated task object
+    //----------------------------------------------------------------------------------------------------
+    public shared(msg) func updateTaskOfMyChild(childId:Text,taskNumber:Nat,updatedTask:Types.Task):async Result.Result<(),Types.Error>{
+
+        let callerId=msg.caller;
+
+        let updatedChildToTasks = Trie.put2D(
+            childToTasks,
+            keyText(childId),
+            Text.equal,
+            keyNat(taskNumber),
+            Nat.equal,
+            updatedTask
+        );
+        childToTasks:=updatedChildToTasks;
+        return #ok(());
+    };
+
+
+    //This method is used to make any updates to the child object
+    //Parametes needed: childId and updated child object.
+    //----------------------------------------------------------------------------------------------------
 
   
     public shared(msg) func updateMyChild(childId:Text,child:Types.Child):async Result.Result<(),Types.Error> {
@@ -132,21 +468,7 @@ actor trial {
         return #ok(());
     };
 
-    public shared(msg) func updateTaskOfMyChild(childId:Text,taskNumber:Nat,updatedTask:Types.Task):async Result.Result<(),Types.Error>{
 
-        let callerId=msg.caller;
-
-        let updatedChildToTasks = Trie.put2D(
-            childToTasks,
-            keyText(childId),
-            Text.equal,
-            keyNat(taskNumber),
-            Nat.equal,
-            updatedTask
-        );
-        childToTasks:=updatedChildToTasks;
-        return #ok(());
-    };
 
     private func keyPrincipal(x:Principal):Trie.Key<Principal>{
         return {key = x;hash=Principal.hash(x)}
@@ -167,4 +489,36 @@ actor trial {
     private func extractTasks(k:Nat,v:Types.Task):Types.Task{
         return v;
     };
+    private func extractTransactions(k:Nat,v:Types.Transaction):Types.Transaction{
+        return v;
+    };
+    private func extractGoals(k:Nat,v:Types.Goal):Types.Goal{
+        return v;
+    };
+
+    private func returnTransactionDetails(childId:Text):(Trie.Trie<Nat,Types.Transaction>,Nat){
+        let myTransactions:?Trie.Trie<Nat,Types.Transaction> = Trie.find(
+            childToTransactions,
+            keyText(childId),
+            Text.equal
+        );
+        
+        let myTransactionsFormatted:Trie.Trie<Nat,Types.Transaction> = Option.get(myTransactions,Trie.empty());
+        var currentPointer:Nat = Trie.size(myTransactionsFormatted);
+        currentPointer+=1;
+        return (myTransactionsFormatted,currentPointer);
+    };
+
+    public  func getMyBalance(childId:Text):async Nat{
+                let currentBalance = Trie.find(
+                    childToBalance,
+                    keyText(childId),
+                    Text.equal
+                );
+                let currentBalanceFormatted = Option.get(currentBalance,0);
+                return currentBalanceFormatted;
+    }
 }
+
+
+
