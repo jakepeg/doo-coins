@@ -1,11 +1,89 @@
+type Transaction = 
+ record {
+   completedDate: text;
+   id: nat;
+   name: text;
+   transactionType: text;
+   value: nat;
+ };
+type TaskCall = 
+ record {
+   name: text;
+   value: nat;
+ };
+type Task = 
+ record {
+   id: nat;
+   name: text;
+   value: nat;
+ };
+type Result_5 = 
+ variant {
+   err: Error;
+   ok: Child;
+ };
+type Result_4 = 
+ variant {
+   err: Error;
+   ok: vec Child;
+ };
+type Result_3 = 
+ variant {
+   err: Error;
+   ok: vec Goal;
+ };
+type Result_2 = 
+ variant {
+   err: Error;
+   ok: vec Task;
+ };
+type Result_1 = 
+ variant {
+   err: Error;
+   ok: vec Transaction;
+ };
+type Result = 
+ variant {
+   err: Error;
+   ok;
+ };
+type GoalCall = 
+ record {
+   name: text;
+   value: nat;
+ };
+type Goal = 
+ record {
+   id: nat;
+   name: text;
+   value: nat;
+ };
+type Error = 
+ variant {
+   AlreadyExists;
+   BalanceNotEnough;
+   NotAuthorized;
+   NotFound;
+ };
+type ChildCall = record {name: text;};
+type Child = 
+ record {
+   id: text;
+   name: text;
+ };
 service : {
-  addChild: (text, text) -> (opt text);
-  getChild: (text) -> (opt text) query;
-  getChildren: () -> (vec record {
-                            text;
-                            text;
-                          }) query;
-  getParentId: () -> (principal);
-  length: () -> (nat) query;
-  removeChild: (text) -> () oneway;
+  addChild: (ChildCall) -> (Result_5);
+  addGoal: (GoalCall, text) -> (Result_3);
+  addTask: (TaskCall, text) -> (Result_2);
+  approveTask: (text, nat, text) -> (Result);
+  claimGoal: (text, nat, text) -> (Result);
+  currentGoal: (text, nat) -> (Result);
+  getBalance: (text) -> (nat);
+  getChildren: () -> (Result_4);
+  getCurrentGoal: (text) -> (nat);
+  getGoals: (text) -> (Result_3);
+  getTasks: (text) -> (Result_2);
+  getTransactions: (text) -> (Result_1);
+  updateChild: (text, Child) -> (Result);
+  updateTask: (text, nat, Task) -> (Result);
 }
