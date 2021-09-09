@@ -1,33 +1,37 @@
 import * as React from "react";
-import play from '../images/play.svg';
 
 const TaskList = (props) => {
+  const [actor, setActor] = React.useState(null);
+  const [tasks, setTasks] = React.useState({});
 
-  // const str = props.childTasks.slice(8, -3)
-  // const childTasks = str.split("},{");
+  function getTasks(idarg) {
+    actor?.getTasks(idarg).then((returnedTasks) => {
+      const tasks = Object.values(returnedTasks);
+      console.log(tasks)
+      setTasks(tasks);
+    });
+    return false;
+  }
+
+  React.useEffect(() => {
+    import("../declarations/doocoins")
+    .then((module) => {setActor(module.doocoins)})
+  }, []);
+
+  React.useEffect(() => {
+    getTasks(props.selectedChild);
+  }, [props.selectedChild, props.newTask]);
 
   return (
       <>
-<div>names {props.taskNames}</div>
-<div>values {props.taskValues}</div>
-<div>ids {props.taskIds}</div>
-
-              <div className="list-row">
-                <div className="list-col-name">
-                  {
-                    props.taskNames.map((name, index) => 
-                    <p key={index}>{name}</p>
-                  )}
-                </div>
-                <div className="list-col-name">
-                  {
-                    props.taskValues.map((value, index) => 
-                    <p key={index}>{value}</p>
-                  )}
-                </div>
-                <div className="list-col-image"><img src={play} className="play-img" alt="right arrow" /></div>
-              </div>
-
+            {tasks.length > 0 &&
+                tasks[0].map(task => (
+                <div key={parseInt(task.id)} onClick={() => props.handleTaskComplete(parseInt(task.id))}>
+                    id={parseInt(task.id)}<br />
+                    name={task.name}<br />
+                    value={parseInt(task.value)} </div> 
+                ))
+            }
       </>
   );
 };
