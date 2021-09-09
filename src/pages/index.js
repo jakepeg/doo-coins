@@ -114,13 +114,13 @@ const IndexPage = () => {
         </div>
 
         <div className="right-panel">
-          <section>
+          <section className="fixed-height">
             <div className="panel-header">
               <h2>Wallet</h2>
             </div>
           </section>
 
-          <section>
+          <section className="fixed-height">
             <div className="panel-header">
               <h2>Goal</h2>
               <h2 className="panel-header-link" onClick={() => ref.current.toggle() }>Set Goal</h2> 

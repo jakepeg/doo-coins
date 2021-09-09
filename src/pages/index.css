@@ -59,6 +59,10 @@ section {
   margin: 20px;
 }
 
+.fixed-height {
+  height: 200px;
+}
+
 .panel-header {
   display: flex;
   justify-content: space-between;
