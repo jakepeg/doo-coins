@@ -12,23 +12,11 @@ import "./index.css";
 
 const IndexPage = () => {
   const [actor, setActor] = React.useState(null);
-  // const [myChildren, setChildren] = React.useState([]);
-  // const [childrenLoaded, setChildrenLoaded] = React.useState(false);
   const [newChild, setNewChild] = React.useState(null);
   const [newTask, setNewTask] = React.useState(null);
   const [selectedChild, setSelectedChildId] = React.useState(null);
   const [selectedChildName, setSelectedChildName] = React.useState(null);
   const ref = React.useRef();
-
-
-  // function getChildren() {
-  //   actor?.getChildren().then((returnedChilren) => {
-  //       setChildren(returnedChilren);
-  //       setChildrenLoaded(true);
-  //   });
-  //    return false;
-  // }
-
 
 // getChild needs to call getTasks, getTransactions, getGoals, getCurrentGoal, getBalance
 
@@ -75,10 +63,6 @@ const IndexPage = () => {
     import("../declarations/doocoins")
     .then((module) => {setActor(module.doocoins)})
   }, []);
-
-  // React.useEffect(() => {
-  //   getChildren();
-  // }, [actor, newChild]);
 
   return (
     <>
@@ -157,6 +141,15 @@ const IndexPage = () => {
               handleAddTask = {handleAddTask} 
             />
           </section>
+
+
+          <section>
+            <div className="panel-header">
+              <h2>Transactions</h2>
+            </div>
+          </section>
+
+
         </div>
 
       </div>

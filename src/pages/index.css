@@ -23,13 +23,13 @@ body {
 }
 
 .left-panel {
-  width: 370px;
-  background-color: red;
+  width: 390px;
 }
 
 .right-panel {
-  width: 750px;
-  background-color: blue;
+  display: flex;
+  flex-wrap: wrap;
+  width: 865px;
 }
 
 .header {
