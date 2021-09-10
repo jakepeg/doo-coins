@@ -17,18 +17,19 @@ body {
 
 .main {
   display: flex;
+  align-items: flex-start;
   margin-left: 60px;
-  margin-top: 15px;
-  padding: 0px 10px;
+  margin-top: 40px;
 }
 
 .left-panel {
-  width: 390px;
+  width: 380px;
 }
 
 .right-panel {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   width: 865px;
 }
 
@@ -54,9 +55,17 @@ section {
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
-  width: 350px;
   padding: 3px 20px 20px 20px;
-  margin: 20px;
+  margin-left: 40px;
+  margin-bottom: 40px;
+}
+
+.section-medium {
+  width: 300px;
+}
+
+.section-large {
+  width: 350px;
 }
 
 .fixed-height {
@@ -83,6 +92,7 @@ p {
 
 h2 {
   font-weight: 200;
+  font-size: 1.4em;
 }
 
 .play-img {
@@ -111,12 +121,24 @@ h2 {
   justify-content: space-between;
   padding: 10px;
   background-color: hsl(0, 0%, 100%);
+  border: 1px solid hsl(0, 0%, 100%);
+  vertical-align: middle;
+  border-radius: 10px;
+}
+
+.active-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: hsl(205, 67%, 96%);
+  border: 1px solid #999;
   vertical-align: middle;
   border-radius: 10px;
 }
 
 .row:hover {
   background-color: hsl(205, 67%, 96%);
+  border: 1px solid hsl(205, 67%, 96%);
   cursor: pointer;
 }
 
@@ -136,8 +158,40 @@ h2 {
   margin-top: 15px;
 }
 
+.flippy-container * {
+  box-sizing: inherit !important;
+}
+
 .flippy-front,
 .flippy-back {
   padding: 0em !important;
   box-shadow: 0 0 0 0 rgb(0 0 0 / 20%) !important;
+}
+
+.form {
+}
+
+label {
+  font-size: 1em;
+}
+
+.number {
+  width: 3em;
+}
+
+.text {
+  width: 8em;
+}
+
+.button {
+  margin-left: 5px;
+}
+
+.wallet {
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 19.17%,
+      rgba(11, 51, 77, 0.28) 100%
+    ),
+    #ffffff;
 }

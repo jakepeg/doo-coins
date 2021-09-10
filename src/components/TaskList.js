@@ -1,4 +1,6 @@
 import * as React from "react";
+import play from '../images/play.svg';
+import dc from '../images/dc.svg';
 
 const TaskList = (props) => {
   const [actor, setActor] = React.useState(null);
@@ -26,10 +28,11 @@ const TaskList = (props) => {
       <>
             {tasks.length > 0 &&
                 tasks[0].map(task => (
-                <div key={parseInt(task.id)} onClick={() => props.handleTaskComplete(parseInt(task.id))}>
-                    id={parseInt(task.id)}<br />
-                    name={task.name}<br />
-                    value={parseInt(task.value)} </div> 
+                  <div className="row" key={parseInt(task.id)} onClick={() => props.handleTaskComplete(parseInt(task.id))}>
+                    <div className="col-large"><p className="col-p">{task.name}</p></div>
+                    <div className="col-small"><p className="col-p"><img src={dc} className="dc-img" alt="DooCoins symbol" />{parseInt(task.value)}</p></div>
+                    <div className="col-small"><img src={play} className="play-img" alt="right arrow" /></div>
+                  </div> 
                 ))
             }
       </>

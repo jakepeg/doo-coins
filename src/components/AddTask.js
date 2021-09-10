@@ -4,17 +4,11 @@ const AddTask = (props) => {
 
   return (
       <form onSubmit={props.handleAddTask}>
-          <label htmlFor="task_name">
-            Task name<br /><br />
-            <input type="text" name="task_name" autoComplete="task name" />
-          </label>
-          <br /><br />
-          <label htmlFor="task_value">
-            Task value<br /><br />
-            <input type="number" name="task_value" autoComplete="task value" />
-          </label>
-          <br /><br />
-        <button type="submit">Add Task</button>
+        <label htmlFor="task_name"> Title <input className="text" type="text" name="task_name" autoComplete="task name" />
+        </label>
+        <label htmlFor="task_value"> Value <input className="number" type="number" name="task_value" autoComplete="task value" />
+        </label>
+        <button className="button" type="submit">Add</button>
       </form>
   );
 };

@@ -33,7 +33,7 @@ const ChildList = (props) => {
       <>
         {children.length > 0 &&
           children[0].map(child => (
-            <div className="row" key={child.id} onClick={() => props.getChild(child.id)}>
+            <div className={props.selectedChild === child.id ? "active-row" : "row"} key={child.id} onClick={() => props.getChild(child.id)}>
               <div className="col-small"><img onError={addDefaultSrc} alt="profile pic" className="profile-img" src={`https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_25,w_50/v1630748310/doozone/${child.id}.jpg`}/></div>
               <div className="col-medium"><p className="col-p">{child.name}</p></div>
               <div className="col-small"><img src={play} className="play-img" alt="right arrow" /></div>

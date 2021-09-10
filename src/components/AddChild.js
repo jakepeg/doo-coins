@@ -1,21 +1,22 @@
 import * as React from "react";
-import ImageUpload from "./ImageUpload";
+// import ImageUpload from "./ImageUpload";
 
 const AddChild = (props) => {
 
   return (
       <form onSubmit={props.handleAddChild}>
+        <div className="form">
           <label htmlFor="child_name">
-            Name<br /><br />
-            <input type="text" name="child_name" autoComplete="name" />
+            Name <input type="text" name="child_name" autoComplete="name" />
           </label>
-          <br /><br />
-          <ImageUpload
-          child_id={props.childID}
-         />
 
-        <button type="submit">Add Child</button>
-      </form>
+          {/* <ImageUpload
+          child_id={props.childID}
+         /> */}
+
+        <button className="button" type="submit">Add</button>
+      </div>
+    </form>
   );
 };
 
