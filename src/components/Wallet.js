@@ -1,5 +1,6 @@
 import * as React from "react";
 import dc from '../images/dc.svg';
+import microchip from '../images/microchip.svg';
 
 const Wallet = (props) => {
   const [actor, setActor] = React.useState(null);
@@ -25,7 +26,11 @@ const Wallet = (props) => {
 
   return (
       <>
-        <p><img src={dc} className="dc-img" alt="DooCoins symbol" />{balance}</p>
+        <p className="balance"><img src={dc} className="dc-img-big" alt="DooCoins symbol" />{balance}</p>
+        <div className="wallet-footer">
+          <p className="wallet-name">Quin</p>
+          <img src={microchip} className="microchip" alt="DooCoins microchip" />
+        </div>
       </>
   );
 };

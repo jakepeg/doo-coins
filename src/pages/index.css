@@ -88,6 +88,7 @@ section {
 
 p {
   font-size: 1.2em;
+  color: hsl(204, 75%, 17%);
 }
 
 h2 {
@@ -102,6 +103,30 @@ h2 {
 
 .dc-img {
   width: 17px;
+}
+
+.dc-img-big {
+  width: 60px;
+}
+
+.balance {
+  font-size: 68px;
+  padding: 0;
+  margin: 14px 0 0 0;
+  text-align: center;
+}
+
+.wallet-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wallet-footer p {
+  color: white;
+}
+
+.microchip {
+  width: 15%;
 }
 
 .profile-img {
