@@ -11,6 +11,7 @@ import AddChild from "../components/AddChild";
 import AddTask from "../components/AddTask";
 import AddGoal from "../components/AddGoal";
 import "./index.css";
+import GoalProgress from "../components/GoalProgress";
 
 const IndexPage = () => {
   const [actor, setActor] = React.useState(null);
@@ -147,6 +148,7 @@ const IndexPage = () => {
                 <h2>Goal</h2>
                 <h2 className="panel-header-link" onClick={() => ref.current.toggle() }>Set Goal</h2> 
               </div>
+              <GoalProgress />
             </section>
           </FrontSide>
           <BackSide>

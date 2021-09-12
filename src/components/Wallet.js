@@ -1,5 +1,5 @@
 import * as React from "react";
-import dc from '../images/dc.svg';
+import dc from '../images/dc-thin.svg';
 import microchip from '../images/microchip.svg';
 
 const Wallet = (props) => {

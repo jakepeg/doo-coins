@@ -106,13 +106,15 @@ h2 {
 }
 
 .dc-img-big {
-  width: 60px;
+  width: 32px;
 }
 
 .balance {
-  font-size: 68px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 52px;
+  font-weight: 300;
   padding: 0;
-  margin: 14px 0 0 0;
+  margin: 14px 0 20px 0;
   text-align: center;
 }
 
@@ -219,4 +221,9 @@ label {
       rgba(11, 51, 77, 0.28) 100%
     ),
     #ffffff;
+}
+
+.goal-progress {
+  width: 130px;
+  height: 130px;
 }
