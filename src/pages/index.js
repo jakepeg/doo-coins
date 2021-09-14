@@ -12,14 +12,20 @@ import AddTask from "../components/AddTask";
 import AddGoal from "../components/AddGoal";
 import "./index.css";
 import GoalProgress from "../components/GoalProgress";
+import TransactionList from "../components/TransactionList";
 
 const IndexPage = () => {
   const [actor, setActor] = React.useState(null);
   const [newChild, setNewChild] = React.useState(null);
+  const [balance, setBalance] = React.useState(null);
   const [newTask, setNewTask] = React.useState(null);
   const [taskComplete, setTaskComplete] = React.useState(null);
+  // const forceUpdate = React.useReducer(bool => !bool)[1];
   const [goalClaimed, setGoalClaimed] = React.useState(null);
   const [newGoal, setNewGoal] = React.useState(null);
+  // const [goalName, setGoalName] = React.useState(null);
+  // const [goalValue, setGoalValue] = React.useState(null);
+  const [currentGoal, setCurrentGoal] = React.useState(null);
   const [selectedChild, setSelectedChildId] = React.useState(null);
   const [selectedChildName, setSelectedChildName] = React.useState(null);
   const ref = React.useRef();
@@ -32,20 +38,27 @@ const IndexPage = () => {
     return false;
   }
 
+  function getBalance() {
+    actor?.getBalance(selectedChild).then((returnedBalance) => {
+      setBalance(parseInt(returnedBalance));
+    });
+    return false;
+  }
+
   function handleTaskComplete(task_id) {
     console.log(task_id);
     let r = window.confirm("Is the task complete?");
     if (r == true) {
-      console.log("You pressed OK!");
-      setTaskComplete(parseInt(task_id));
+      let dateNum = Math.floor(Date.now() / 1000);
+      let date = dateNum.toString();
+      actor?.approveTask(selectedChild,task_id,date).then(() => {
+        setTaskComplete(parseInt(task_id));
+        // forceUpdate();
+      });
+
     } else {
       console.log("You pressed cancel!");
     }
-  }
-
-  function handleSetGoal(goal_id) {
-    console.log(goal_id);
-    ref.current.toggle();
   }
 
   function handleAddChild(e) {
@@ -77,6 +90,7 @@ const IndexPage = () => {
     return false;
   }
 
+  // add a new goal
   function handleAddGoal(e) {
     e.preventDefault();
     const inputs = e.target.querySelectorAll("input");
@@ -92,10 +106,25 @@ const IndexPage = () => {
     return false;
   }
 
+  // set current goal
+  function handleSetGoal(goal_id) {
+    actor?.currentGoal(selectedChild,goal_id).then(() => {
+      console.log("new current goal = "+goal_id);
+      setCurrentGoal(goal_id);
+      ref.current.toggle();
+    });
+  }
+
+  // claim goal - add goal to transactions list claimGoal
+
   React.useEffect(() => {
     import("../declarations/doocoins")
     .then((module) => {setActor(module.doocoins)})
   }, []);
+
+  React.useEffect(() => {
+    getBalance();
+  }, [selectedChild, taskComplete, goalClaimed]);
 
   return (
     <>
@@ -130,9 +159,7 @@ const IndexPage = () => {
               <h2>Wallet</h2>
             </div>
             <Wallet
-              selectedChild = {selectedChild}
-              taskComplete = {taskComplete}
-              goalClaimed = {goalClaimed}
+              balance = {balance}
             />
           </section>
 
@@ -148,7 +175,12 @@ const IndexPage = () => {
                 <h2>Goal</h2>
                 <h2 className="panel-header-link" onClick={() => ref.current.toggle() }>Set Goal</h2> 
               </div>
-              <GoalProgress />
+              <GoalProgress
+                selectedChild = {selectedChild}
+                newGoal = {newGoal}
+                currentGoal = {currentGoal}
+                balance = {balance}
+              />
             </section>
           </FrontSide>
           <BackSide>
@@ -161,6 +193,7 @@ const IndexPage = () => {
                 selectedChild = {selectedChild}
                 newGoal = {newGoal}
                 handleSetGoal = {handleSetGoal}
+                currentGoal = {currentGoal}
               />
               <h4>Add a goal</h4>
               <AddGoal 
@@ -190,6 +223,10 @@ const IndexPage = () => {
             <div className="panel-header">
               <h2>Transactions</h2>
             </div>
+            <TransactionList
+              selectedChild = {selectedChild}
+              balance = {balance}
+            />
           </section>
 
 

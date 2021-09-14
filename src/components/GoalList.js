@@ -6,8 +6,8 @@ const GoalList = (props) => {
   const [actor, setActor] = React.useState(null);
   const [goals, setGoals] = React.useState({});
 
-  function getGoals(idarg) {
-    actor?.getGoals(idarg).then((returnedGoals) => {
+  function getGoals(childId) {
+    actor?.getGoals(childId).then((returnedGoals) => {
       const goals = Object.values(returnedGoals);
       console.log(goals)
       setGoals(goals);
@@ -37,6 +37,6 @@ const GoalList = (props) => {
             }
       </>
   );
-};
+}
 
 export default GoalList;

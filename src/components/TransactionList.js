@@ -2,14 +2,15 @@ import * as React from "react";
 import play from '../images/play.svg';
 import dc from '../images/dc.svg';
 
-const TaskList = (props) => {
+const TransactionList = (props) => {
   const [actor, setActor] = React.useState(null);
-  const [tasks, setTasks] = React.useState({});
+  const [transactions, setTransactions] = React.useState({});
 
-  function getTasks(child) {
-    actor?.getTasks(child).then((returnedTasks) => {
-      const tasks = Object.values(returnedTasks);
-      setTasks(tasks);
+  function getTransactions(child) {
+    actor?.getTransactions(child).then((returnedTransactions) => {
+      const transactions = Object.values(returnedTransactions);
+      setTransactions(transactions);
+      console.log("transactions = "+transactions)
     });
     return false;
   }
@@ -20,12 +21,12 @@ const TaskList = (props) => {
   }, []);
 
   React.useEffect(() => {
-    getTasks(props.selectedChild);
-  }, [props.selectedChild, props.newTask]);
+    getTransactions(props.selectedChild);
+  }, [props.selectedChild, props.balance]);
 
   return (
       <>
-            {tasks.length > 0 &&
+            {/* {tasks.length > 0 &&
                 tasks[0].map(task => (
                   <div className="row" key={parseInt(task.id)} onClick={() => props.handleTaskComplete(parseInt(task.id))}>
                     <div className="col-large"><p className="col-p">{task.name}</p></div>
@@ -33,9 +34,10 @@ const TaskList = (props) => {
                     <div className="col-small"><img src={play} className="play-img" alt="right arrow" /></div>
                   </div> 
                 ))
-            }
+            } */}
+            <p>transactions</p>
       </>
   );
 };
 
-export default TaskList;
+export default TransactionList;
