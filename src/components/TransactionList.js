@@ -1,4 +1,5 @@
 import * as React from "react";
+import Moment from 'react-moment';
 import play from '../images/play.svg';
 import dc from '../images/dc.svg';
 
@@ -35,7 +36,16 @@ const TransactionList = (props) => {
                   </div> 
                 ))
             } */}
-            <p>transactions</p>
+
+            {transactions.length > 0 &&
+              transactions[0].map(transaction => (
+                  <div className="row" key={parseInt(transaction.id)}>
+                    <div className="col-medium"><p className="col-p"><Moment format="DD/MM/YY" unix>{transaction.completedDate}</Moment></p></div>
+                    <div className="col-large"><p className="col-p">{transaction.name}</p></div>
+                    <div className="col-small"><p className="col-p"><img src={dc} className="dc-img" alt="DooCoins symbol" />{parseInt(transaction.value)}</p></div>
+                  </div> 
+                ))
+            }
       </>
   );
 };

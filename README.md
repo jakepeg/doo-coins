@@ -20,18 +20,19 @@ or Deploy canisters to the network
 
 >
 
-Canister calls
+Methods
 
-> dfx canister call doocoins getChildren
-
-> dfx canister call doocoins length
-
-> dfx canister call doocoins addChild
-
-> dfx canister call doocoins addChild '("4c37e74-d0e0-4ad0-40f2-fdba7a1cf135", "Quin")'
-
-> dfx canister call doocoins getChild "4c37e74-d0e0-4ad0-40f2-fdba7a1cf135"
-
-> dfx canister call doocoins removeChild "4c37e74-d0e0-4ad0-40f2-fdba7a1cf135"
-
-> dfx canister call doocoins getParentId
+addChild
+addTask
+getChildren
+getTasks
+addGoal
+currentGoal (assign current goal)
+getGoals
+claimGoal
+getCurrentGoal
+getTransactions
+approveTask
+updateTask
+updateChild
+getBalance
