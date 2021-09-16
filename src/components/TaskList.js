@@ -7,6 +7,7 @@ const TaskList = (props) => {
   const [tasks, setTasks] = React.useState({});
 
   function getTasks(child) {
+    console.log("getTasks called for child id: "+child);
     actor?.getTasks(child).then((returnedTasks) => {
       const tasks = Object.values(returnedTasks);
       setTasks(tasks);
@@ -27,7 +28,7 @@ const TaskList = (props) => {
       <>
             {tasks.length > 0 &&
                 tasks[0].map(task => (
-                  <div className="row" key={parseInt(task.id)} onClick={() => props.handleTaskComplete(parseInt(task.id))}>
+                  <div role="button" className="row" key={parseInt(task.id)} onClick={() => props.handleTaskComplete(parseInt(task.id))} onKeyDown={() => props.handleTaskComplete(parseInt(task.id))}>
                     <div className="col-large"><p className="col-p">{task.name}</p></div>
                     <div className="col-small"><p className="col-p"><img src={dc} className="dc-img" alt="DooCoins symbol" />{parseInt(task.value)}</p></div>
                     <div className="col-small"><img src={play} className="play-img" alt="right arrow" /></div>

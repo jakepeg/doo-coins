@@ -1,8 +1,6 @@
 import * as React from "react";
-import { Link } from "gatsby";
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import Header from "../components/Header";
-import logo from '../images/logo.svg';
 import Wallet from "../components/Wallet";
 import ChildList from "../components/ChildList";
 import TaskList from "../components/TaskList";
@@ -16,6 +14,7 @@ import TransactionList from "../components/TransactionList";
 
 const IndexPage = () => {
   const [actor, setActor] = React.useState(null);
+  const [childClicked, setChildClicked] = React.useState(false);
   const [newChild, setNewChild] = React.useState(null);
   const [balance, setBalance] = React.useState(null);
   const [newTask, setNewTask] = React.useState(null);
@@ -33,6 +32,9 @@ const IndexPage = () => {
 // getChild needs to call getTasks, getTransactions, getGoals, getCurrentGoal, getBalance
 
   function getChild(child_id, child_name) {
+    console.log("child name = "+child_name);
+    console.log("child id = "+child_id);
+    setChildClicked(true);
     setSelectedChildId(child_id);
     setSelectedChildName(child_name);
     return false;
@@ -115,7 +117,19 @@ const IndexPage = () => {
     });
   }
 
-  // claim goal - add goal to transactions list claimGoal
+  // claim goal
+  function handleClaimGoal(goal_id) {
+    let r = window.confirm("Are you sure?");
+    if (r == true) {
+      let dateNum = Math.floor(Date.now() / 1000);
+      let date = dateNum.toString();
+      actor?.claimGoal(selectedChild,goal_id,date).then(() => {
+        setGoalClaimed(parseInt(goal_id));
+      });
+    } else {
+      console.log("You pressed cancel!");
+    }
+  }
 
   React.useEffect(() => {
     import("../declarations/doocoins")
@@ -129,12 +143,15 @@ const IndexPage = () => {
   return (
     <>
       <title>DooCoins</title>
-      <div className="side-nav">
+      {/* <div className="side-nav">
         <Link className="logo-group" to="/">
           <img src={logo} className="logo-img" alt="doo logo" />
         </Link>
-      </div>
-      <Header childName={selectedChildName} />
+      </div> */}
+      <Header 
+        childName={selectedChildName} 
+        selectedChild = {selectedChild}
+      />
       <div className="main">
       <div className="left-panel">
             <section className="section-medium">
@@ -144,6 +161,7 @@ const IndexPage = () => {
               <ChildList
               getChild = {getChild} 
               selectedChild = {selectedChild}
+              newChild = {newChild}
               />
               <h4>Add a child</h4>
               <AddChild 
@@ -152,7 +170,6 @@ const IndexPage = () => {
               />
             </section>
         </div>
-
         <div className="right-panel">
           <section className="fixed-height section-large wallet">
             <div className="panel-header">
@@ -160,9 +177,9 @@ const IndexPage = () => {
             </div>
             <Wallet
               balance = {balance}
+              name = {selectedChildName}
             />
           </section>
-
           <Flippy
             flipOnClick={false}
             flipDirection="horizontal"
@@ -180,6 +197,7 @@ const IndexPage = () => {
                 newGoal = {newGoal}
                 currentGoal = {currentGoal}
                 balance = {balance}
+                handleClaimGoal = {handleClaimGoal}
               />
             </section>
           </FrontSide>
@@ -202,7 +220,6 @@ const IndexPage = () => {
             </section>
           </BackSide>
         </Flippy>
-
         <section className="section-large">
             <div className="panel-header">
             <h2>Tasks</h2>
@@ -217,8 +234,6 @@ const IndexPage = () => {
               handleAddTask = {handleAddTask} 
             />
           </section>
-
-
           <section className="section-large">
             <div className="panel-header">
               <h2>Transactions</h2>
@@ -228,8 +243,6 @@ const IndexPage = () => {
               balance = {balance}
             />
           </section>
-
-
         </div>
 
       </div>

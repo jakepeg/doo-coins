@@ -26,29 +26,23 @@ function ImageUpload(props) {
     setLoading(false)
   }
 
-  function addDefaultSrc(ev){
-    ev.target.src = 'https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_15,w_30/profil_pic_ktj7w8.jpg';
-  }
-
   return (
-    <div className="image-upload">
-
-
-<label for="file">
-<img onError={addDefaultSrc} alt="profile pic" className="profile-img-header" src={`https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_15,w_30/doozone/${props.selectedChild}.jpg`}/>
-</label>
-
+    <div>
+    <label htmlFor="file">
+    Change picture 
       <input 
         type="file"
         name="file"
-        id="file"
-        onChange={uploadImage} />
-
+        placeholder="Upload an image"
+        onChange={uploadImage}
+      /><br />
+      </label>
       {loading ? (
         <h3>LOADING IMAGE...</h3>
       ) : (
-        <h3>LOADED</h3>
+        <img src={image} style={{width: '300px'}} />
       )}
+
 
     </div>
   )

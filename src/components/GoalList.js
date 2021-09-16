@@ -28,7 +28,7 @@ const GoalList = (props) => {
       <>
             {goals.length > 0 &&
                 goals[0].map(goal => (
-                  <div className="row" key={parseInt(goal.id)} onClick={() => props.handleSetGoal(parseInt(goal.id))}>
+                  <div role="button" className="row" key={parseInt(goal.id)} onClick={() => props.handleSetGoal(parseInt(goal.id))} onKeyDown={() => props.handleSetGoal(parseInt(goal.id))}>
                     <div className="col-large"><p className="col-p">{goal.name}</p></div>
                     <div className="col-small"><p className="col-p"><img src={dc} className="dc-img" alt="DooCoins symbol" />{parseInt(goal.value)}</p></div>
                     <div className="col-small"><img src={play} className="play-img" alt="right arrow" /></div>

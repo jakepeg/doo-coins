@@ -7,7 +7,7 @@ const AddChild = (props) => {
       <form onSubmit={props.handleAddChild}>
         <div className="form">
           <label htmlFor="child_name">
-            Name <input type="text" name="child_name" autoComplete="name" />
+            Name <input type="text" name="child_name" />
           </label>
 
           {/* <ImageUpload

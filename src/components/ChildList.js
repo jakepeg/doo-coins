@@ -4,12 +4,11 @@ import play from '../images/play.svg';
 const ChildList = (props) => {
   const [actor, setActor] = React.useState(null);
   const [children, setChildren] = React.useState({});
-  // const [childrenLoaded, setChildrenLoaded] = React.useState(false);
 
   function getChildren() {
+    console.log("getChildren called");
     actor?.getChildren().then((returnedChilren) => {
         const children = Object.values(returnedChilren);
-        // setChildrenLoaded(true);
         setChildren(children);
         console.log(children);
     });
@@ -17,7 +16,7 @@ const ChildList = (props) => {
   }
 
   function addDefaultSrc(ev){
-    ev.target.src = 'https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_25,w_50/v1630748310/profil_pic_ktj7w8.jpg';
+    ev.target.src = 'https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_25,w_50/profil_pic_ktj7w8.jpg';
   }
 
   React.useEffect(() => {
@@ -27,14 +26,18 @@ const ChildList = (props) => {
 
   React.useEffect(() => {
     getChildren();
-  }, [actor]);
+  }, [actor, props.newChild]);
 
   return (
       <>
         {children.length > 0 &&
           children[0].map(child => (
-            <div className={props.selectedChild === child.id ? "active-row" : "row"} key={child.id} onClick={() => props.getChild(child.id)}>
-              <div className="col-small"><img onError={addDefaultSrc} alt="profile pic" className="profile-img" src={`https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_25,w_50/v1630748310/doozone/${child.id}.jpg`}/></div>
+            <div role="button" className={props.selectedChild === child.id ? "active-row" : "row"} key={child.id} onClick={() => props.getChild(child.id, child.name)} onKeyDown={() => props.getChild(child.id, child.name)}>
+              <div className="col-small">
+
+              <img onError={addDefaultSrc} alt="profile pic" className="profile-img blaa" src={`https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_25,w_50/doozone/${child.id}.jpg`}/>
+
+              </div>
               <div className="col-medium"><p className="col-p">{child.name}</p></div>
               <div className="col-small"><img src={play} className="play-img" alt="right arrow" /></div>
             </div>

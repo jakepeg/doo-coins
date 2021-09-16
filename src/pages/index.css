@@ -1,6 +1,7 @@
 body {
   background-color: hsl(205, 67%, 96%);
   font-family: "Lato", sans-serif;
+  margin: 0;
 }
 
 .side-nav {
@@ -18,7 +19,7 @@ body {
 .main {
   display: flex;
   align-items: flex-start;
-  margin-left: 60px;
+  margin-left: 0;
   margin-top: 40px;
 }
 
@@ -35,7 +36,8 @@ body {
 
 .header {
   height: 20px;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: hsl(204, 75%, 17%);
   border-bottom: 1px solid #999;
   overflow-x: hidden;
   padding: 20px;
@@ -49,6 +51,19 @@ body {
 }
 
 .header-menu {
+  display: flex;
+}
+
+.profile-img-header {
+  border: 2px solid;
+  width: 30px;
+  height: 30px;
+  margin-top: -10px;
+  margin-left: 10px;
+  border-radius: 18px;
+  border-color: hsl(205, 67%, 96%);
+  vertical-align: middle;
+  cursor: pointer;
 }
 
 section {
@@ -144,9 +159,25 @@ h2 {
   vertical-align: middle;
 }
 
+.logo-group {
+  display: flex;
+}
+
 .logo-img {
-  width: 85%;
-  margin: -10px 0 0 5px;
+  height: 33px;
+  margin: -6px 3px 0 15px;
+}
+
+.logo-type {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-top: -1px;
+  font-family: sans-serif;
+  -webkit-letter-spacing: 1px;
+  -moz-letter-spacing: 1px;
+  -ms-letter-spacing: 1px;
+  letter-spacing: 1px;
 }
 
 .row {
@@ -269,4 +300,35 @@ label {
 .claim:active {
   position: relative;
   top: 1px;
+}
+
+.GOAL_DEBIT {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgb(243, 184, 184);
+  border: 1px solid hsl(0, 0%, 100%);
+  vertical-align: middle;
+  border-radius: 10px;
+}
+
+.TASK_CREDIT {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: hsl(0, 0%, 100%);
+  border: 1px solid hsl(0, 0%, 100%);
+  vertical-align: middle;
+  border-radius: 10px;
+}
+
+.image-upload {
+  width: 30px;
+  margin-right: 40px;
+  margin-top: 3px;
+  cursor: pointer;
+}
+
+.image-upload > input {
+  display: none;
 }

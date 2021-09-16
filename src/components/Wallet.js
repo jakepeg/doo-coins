@@ -26,7 +26,7 @@ const Wallet = (props) => {
       <>
         <p className="balance"><img src={dc} className="dc-img-big" alt="DooCoins symbol" />{props.balance}</p>
         <div className="wallet-footer">
-          <p className="wallet-name">Quin</p>
+          <p className="wallet-name">{props.name}</p>
           <img src={microchip} className="microchip" alt="DooCoins microchip" />
         </div>
       </>
