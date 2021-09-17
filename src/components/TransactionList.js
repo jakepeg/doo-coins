@@ -27,7 +27,7 @@ const TransactionList = (props) => {
   return (
       <>
             {transactions.length > 0 &&
-              transactions[0].map(transaction => (
+              transactions[0].reverse().map(transaction => (
                   <div className={transaction.transactionType} key={parseInt(transaction.id)}>
                     <div className="col-medium"><p className="col-p"><Moment format="DD/MM/YY" unix>{transaction.completedDate}</Moment></p></div>
                     <div className="col-large"><p className="col-p">{transaction.name}</p></div>

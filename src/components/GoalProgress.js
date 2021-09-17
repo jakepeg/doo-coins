@@ -51,7 +51,7 @@ const GoalProgress = (props) => {
     <div className="goal">
       <div className="goal-info">
         <p className="goal-name">{goalName}</p>
-        {props.balance >= goalValue &&
+        {props.balance >= goalValue && goalValue > 0 &&
           <button className="claim" onClick={() => props.handleClaimGoal(parseInt(goalId))}>Claim</button>
         }
       </div>
