@@ -4,13 +4,13 @@ import Header from "../components/Header";
 import Wallet from "../components/Wallet";
 import ChildList from "../components/ChildList";
 import TaskList from "../components/TaskList";
+import TransactionList from "../components/TransactionList";
 import GoalList from "../components/GoalList";
+import GoalProgress from "../components/GoalProgress";
 import AddChild from "../components/AddChild";
 import AddTask from "../components/AddTask";
 import AddGoal from "../components/AddGoal";
 import "./index.css";
-import GoalProgress from "../components/GoalProgress";
-import TransactionList from "../components/TransactionList";
 
 const IndexPage = () => {
   const [actor, setActor] = React.useState(null);
@@ -19,17 +19,14 @@ const IndexPage = () => {
   const [balance, setBalance] = React.useState(null);
   const [newTask, setNewTask] = React.useState(null);
   const [taskComplete, setTaskComplete] = React.useState(null);
-  // const forceUpdate = React.useReducer(bool => !bool)[1];
   const [goalClaimed, setGoalClaimed] = React.useState(null);
   const [newGoal, setNewGoal] = React.useState(null);
-  // const [goalName, setGoalName] = React.useState(null);
-  // const [goalValue, setGoalValue] = React.useState(null);
   const [currentGoal, setCurrentGoal] = React.useState(null);
   const [selectedChild, setSelectedChildId] = React.useState(null);
   const [selectedChildName, setSelectedChildName] = React.useState(null);
+  const [panelVisibility, setPanelVisibility] = React.useState('hide');
+  
   const ref = React.useRef();
-
-// getChild needs to call getTasks, getTransactions, getGoals, getCurrentGoal, getBalance
 
   function getChild(child_id, child_name) {
     console.log("child name = "+child_name);
@@ -37,6 +34,7 @@ const IndexPage = () => {
     setChildClicked(true);
     setSelectedChildId(child_id);
     setSelectedChildName(child_name);
+    setPanelVisibility('right-panel');
     return false;
   }
 
@@ -55,7 +53,6 @@ const IndexPage = () => {
       let date = dateNum.toString();
       actor?.approveTask(selectedChild,task_id,date).then(() => {
         setTaskComplete(parseInt(task_id));
-        // forceUpdate();
       });
 
     } else {
@@ -92,7 +89,6 @@ const IndexPage = () => {
     return false;
   }
 
-  // add a new goal
   function handleAddGoal(e) {
     e.preventDefault();
     const inputs = e.target.querySelectorAll("input");
@@ -108,7 +104,6 @@ const IndexPage = () => {
     return false;
   }
 
-  // set current goal
   function handleSetGoal(goal_id) {
     actor?.currentGoal(selectedChild,goal_id).then(() => {
       console.log("new current goal = "+goal_id);
@@ -117,7 +112,6 @@ const IndexPage = () => {
     });
   }
 
-  // claim goal
   function handleClaimGoal(goal_id) {
     let r = window.confirm("Are you sure?");
     if (r == true) {
@@ -131,6 +125,8 @@ const IndexPage = () => {
     }
   }
 
+  // should this go into the handleAuthenticated function
+  // and useEffect calls the init function 
   React.useEffect(() => {
     import("../declarations/doocoins")
     .then((module) => {setActor(module.doocoins)})
@@ -143,11 +139,6 @@ const IndexPage = () => {
   return (
     <>
       <title>DooCoins</title>
-      {/* <div className="side-nav">
-        <Link className="logo-group" to="/">
-          <img src={logo} className="logo-img" alt="doo logo" />
-        </Link>
-      </div> */}
       <Header 
         childName={selectedChildName} 
         selectedChild = {selectedChild}
@@ -170,7 +161,7 @@ const IndexPage = () => {
               />
             </section>
         </div>
-        <div className="right-panel">
+        <div className={panelVisibility}>
           <section className="fixed-height section-large wallet">
             <div className="panel-header">
               <h2>Wallet</h2>

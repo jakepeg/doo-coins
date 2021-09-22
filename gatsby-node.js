@@ -33,12 +33,17 @@ function initCanisterIds() {
 }
 initCanisterIds();
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 exports.onCreateWebpackConfig = ({ stage, actions }) => {
   actions.setWebpackConfig({
     plugins: [
       new webpack.EnvironmentPlugin({
         NODE_ENV: "development",
         DOOCOINS_CANISTER_ID: canisters["doocoins"],
+        II_URL: isDevelopment
+        ? "http://localhost:8000?canisterId=rkp4c-7iaaa-aaaaa-aaaca-cai#authorize"
+        : "https://identity.ic0.app/#authorize",
       }),
     ],
   });

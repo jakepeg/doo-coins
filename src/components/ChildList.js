@@ -6,11 +6,9 @@ const ChildList = (props) => {
   const [children, setChildren] = React.useState({});
 
   function getChildren() {
-    console.log("getChildren called");
     actor?.getChildren().then((returnedChilren) => {
         const children = Object.values(returnedChilren);
         setChildren(children);
-        console.log(children);
     });
      return false;
   }
@@ -33,11 +31,7 @@ const ChildList = (props) => {
         {children.length > 0 &&
           children[0].map(child => (
             <div role="button" className={props.selectedChild === child.id ? "active-row" : "row"} key={child.id} onClick={() => props.getChild(child.id, child.name)} onKeyDown={() => props.getChild(child.id, child.name)}>
-              <div className="col-small">
-
-              <img onError={addDefaultSrc} alt="profile pic" className="profile-img blaa" src={`https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_25,w_50/doozone/${child.id}.jpg`}/>
-
-              </div>
+              <div className="col-small"><img onError={addDefaultSrc} alt="profile pic" className="profile-img blaa" src={`https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_25,w_50/doozone/${child.id}.jpg`}/></div>
               <div className="col-medium"><p className="col-p">{child.name}</p></div>
               <div className="col-small"><img src={play} className="play-img" alt="right arrow" /></div>
             </div>
