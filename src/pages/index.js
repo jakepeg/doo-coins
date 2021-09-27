@@ -46,7 +46,6 @@ const IndexPage = () => {
   }
 
   function handleTaskComplete(task_id) {
-    console.log(task_id);
     let r = window.confirm("Is the task complete?");
     if (r == true) {
       let dateNum = Math.floor(Date.now() / 1000);
@@ -125,8 +124,6 @@ const IndexPage = () => {
     }
   }
 
-  // should this go into the handleAuthenticated function
-  // and useEffect calls the init function 
   React.useEffect(() => {
     import("../declarations/doocoins")
     .then((module) => {setActor(module.doocoins)})
