@@ -33,6 +33,12 @@ actor {
     //----------------------------------------------------------------------------------------------------
     public shared(msg) func addChild(child:Types.ChildCall):async Result.Result<Types.Child,Types.Error>{
         let callerId=msg.caller;
+
+        // Reject AnonymousIdentity
+        if(Principal.toText(callerId) == "2vxsx-fae") {
+            return #err(#NotAuthorized);
+        };
+
         let childId = Principal.toText(callerId) # "-" # Nat.toText(childNumber);
         childNumber +=1;
         let finalChild:Types.Child = {
@@ -95,7 +101,12 @@ actor {
 
     public shared(msg) func addTask(task:Types.TaskCall,childId:Text):async Result.Result<[Types.Task],Types.Error>{
         let callerId=msg.caller;
-        
+
+        // Reject AnonymousIdentity
+        if(Principal.toText(callerId) == "2vxsx-fae") {
+            return #err(#NotAuthorized);
+        };
+
         //Getting pointer of current task number of the child
         let currentTaskNumberPointer = Trie.find(
             childToTaskNumber,
@@ -151,6 +162,12 @@ actor {
     
     public shared(msg) func getChildren():async Result.Result<[Types.Child],Types.Error>{
         let callerId=msg.caller;
+
+        // Reject AnonymousIdentity
+        if(Principal.toText(callerId) == "2vxsx-fae") {
+            return #err(#NotAuthorized);
+        };
+
         let allChildren = Trie.find(
             profiles,
             keyPrincipal(callerId),
@@ -168,6 +185,11 @@ actor {
     public shared(msg) func getTasks(childId:Text):async Result.Result<[Types.Task],Types.Error>{
         let callerId = msg.caller;
 
+        // Reject AnonymousIdentity
+        if(Principal.toText(callerId) == "2vxsx-fae") {
+            return #err(#NotAuthorized);
+        };
+
         let myChildTasks = Trie.find(
             childToTasks,
             keyText(childId),
@@ -183,6 +205,11 @@ actor {
 
     public shared(msg) func addGoal(goal:Types.GoalCall,childId:Text):async Result.Result<[Types.Goal],Types.Error>{
         let callerId=msg.caller;
+
+        // Reject AnonymousIdentity
+        if(Principal.toText(callerId) == "2vxsx-fae") {
+            return #err(#NotAuthorized);
+        };
 
         //Getting pointer of current task number of the child
         let currentGoalNumberPointer = Trie.find(
@@ -284,6 +311,11 @@ actor {
     public shared(msg) func approveTask(childId:Text,taskId:Nat,completedDate:Text):async Result.Result<(),Types.Error>{
         let callerId=msg.caller;
 
+        // Reject AnonymousIdentity
+        if(Principal.toText(callerId) == "2vxsx-fae") {
+            return #err(#NotAuthorized);
+        };
+
         let myChildTasks = Trie.find(
             childToTasks,
             keyText(childId),
@@ -342,6 +374,11 @@ actor {
     //----------------------------------------------------------------------------------------------------
     public shared(msg) func claimGoal(childId:Text,goalId:Nat,completedDate:Text):async Result.Result<(),Types.Error>{
         let callerId=msg.caller;
+
+        // Reject AnonymousIdentity
+        if(Principal.toText(callerId) == "2vxsx-fae") {
+            return #err(#NotAuthorized);
+        };
 
         let myGoals:?Trie.Trie<Nat,Types.Goal> = Trie.find(
             childToGoals,
@@ -418,6 +455,11 @@ actor {
 
         let callerId=msg.caller;
 
+        // Reject AnonymousIdentity
+        if(Principal.toText(callerId) == "2vxsx-fae") {
+            return #err(#NotAuthorized);
+        };
+
         let updatedChildToTasks = Trie.put2D(
             childToTasks,
             keyText(childId),
@@ -435,6 +477,11 @@ actor {
     //----------------------------------------------------------------------------------------------------
     public shared(msg) func updateChild(childId:Text,child:Types.Child):async Result.Result<(),Types.Error> {
         let callerId=msg.caller;
+
+        // Reject AnonymousIdentity
+        if(Principal.toText(callerId) == "2vxsx-fae") {
+            return #err(#NotAuthorized);
+        };
 
         let profilesUpdate = Trie.put2D(
             profiles,

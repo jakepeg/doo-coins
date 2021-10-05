@@ -12,14 +12,16 @@ const Header = (props) => {
       </Link>
       <div className="header-menu">
         <span className="logo-type">{props.childName}</span>
-          <ImageUpload 
-            selectedChild = {props.selectedChild} 
-          />
-          {!props.isAuthenticated && 
-            <span className="logo-type" role="button" onClick={() => props.handleLogin()}>Login</span>
+          {props.isAuthenticated && 
+            <ImageUpload 
+              selectedChild = {props.selectedChild} 
+            />
           }
           {props.isAuthenticated && 
-            <span className="logo-type gray" role="button" onClick={() => props.handleLogout()}>Logout</span>
+              <span className="logo-type gray" role="button" onClick={() => props.handleLogout()}>Logout</span>
+          }
+          {!props.isAuthenticated && 
+            <span className="logo-type" role="button" onClick={() => props.handleLogin()}>Login</span>
           }
       </div>
     </div>
