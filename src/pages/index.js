@@ -1,4 +1,5 @@
 import * as React from "react";
+import { AuthClient } from "@dfinity/auth-client";
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
 import Header from "../components/Header";
 import Wallet from "../components/Wallet";
@@ -13,8 +14,9 @@ import AddGoal from "../components/AddGoal";
 import "./index.css";
 
 const IndexPage = () => {
-  const [actor, setActor] = React.useState(null);
-  const [childClicked, setChildClicked] = React.useState(false);
+  const [authClient, setAuthClient] = React.useState();
+  const [actor, setActor] = React.useState();
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [newChild, setNewChild] = React.useState(null);
   const [balance, setBalance] = React.useState(null);
   const [newTask, setNewTask] = React.useState(null);
@@ -28,10 +30,36 @@ const IndexPage = () => {
   
   const ref = React.useRef();
 
+  const initActor = () => {
+    import("../declarations/doocoins")
+    .then((module) => {
+      const actor = module.createActor(module.canisterId, {
+        agentOptions: {
+          identity: authClient?.getIdentity(),
+        },
+      });
+      setActor(actor);
+    })
+  };
+
+  const handleLogin = () => {
+    authClient?.login({
+      identityProvider: process.env.II_URL,
+      onSuccess: () => {
+        initActor();
+        setIsAuthenticated(true);
+      },
+    });
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setActor(undefined);
+  };
+
   function getChild(child_id, child_name) {
     console.log("child name = "+child_name);
     console.log("child id = "+child_id);
-    setChildClicked(true);
     setSelectedChildId(child_id);
     setSelectedChildName(child_name);
     setPanelVisibility('right-panel');
@@ -125,9 +153,16 @@ const IndexPage = () => {
   }
 
   React.useEffect(() => {
-    import("../declarations/doocoins")
-    .then((module) => {setActor(module.doocoins)})
+    AuthClient.create().then(async (client) => {
+      const isAuthenticated = await client.isAuthenticated();
+      setAuthClient(client);
+      setIsAuthenticated(true);
+    });
   }, []);
+
+  React.useEffect(() => {
+    if (isAuthenticated) initActor();
+  }, [isAuthenticated]);
 
   React.useEffect(() => {
     getBalance();
@@ -139,9 +174,13 @@ const IndexPage = () => {
       <Header 
         childName={selectedChildName} 
         selectedChild = {selectedChild}
+        isAuthenticated = {isAuthenticated}
+        handleLogin = {handleLogin}
+        handleLogout = {handleLogout}
       />
       <div className="main">
       <div className="left-panel">
+      {isAuthenticated &&
             <section className="section-medium">
               <div className="panel-header">
                 <h2>My children</h2> 
@@ -150,6 +189,8 @@ const IndexPage = () => {
               getChild = {getChild} 
               selectedChild = {selectedChild}
               newChild = {newChild}
+              authClient = {authClient}
+              isAuthenticated = {isAuthenticated}
               />
               <h4>Add a child</h4>
               <AddChild 
@@ -157,8 +198,10 @@ const IndexPage = () => {
                 childID = {selectedChild}
               />
             </section>
+      }
         </div>
         <div className={panelVisibility}>
+      {isAuthenticated &&
           <section className="fixed-height section-large wallet">
             <div className="panel-header">
               <h2>Wallet</h2>
@@ -168,6 +211,8 @@ const IndexPage = () => {
               name = {selectedChildName}
             />
           </section>
+        }
+        {isAuthenticated &&
           <Flippy
             flipOnClick={false}
             flipDirection="horizontal"
@@ -186,8 +231,11 @@ const IndexPage = () => {
                 currentGoal = {currentGoal}
                 balance = {balance}
                 handleClaimGoal = {handleClaimGoal}
+                authClient = {authClient}
+                isAuthenticated = {isAuthenticated}
               />
             </section>
+
           </FrontSide>
           <BackSide>
             <section className="section-large">
@@ -200,6 +248,8 @@ const IndexPage = () => {
                 newGoal = {newGoal}
                 handleSetGoal = {handleSetGoal}
                 currentGoal = {currentGoal}
+                authClient = {authClient}
+                isAuthenticated = {isAuthenticated}
               />
               <h4>Add a goal</h4>
               <AddGoal 
@@ -208,6 +258,8 @@ const IndexPage = () => {
             </section>
           </BackSide>
         </Flippy>
+      }
+      {isAuthenticated &&
         <section className="section-large">
             <div className="panel-header">
             <h2>Tasks</h2>
@@ -216,12 +268,16 @@ const IndexPage = () => {
               selectedChild = {selectedChild}
               newTask = {newTask}
               handleTaskComplete = {handleTaskComplete}
+              authClient = {authClient}
+              isAuthenticated = {isAuthenticated}
             />
             <h4>Add a Task</h4>
             <AddTask 
               handleAddTask = {handleAddTask} 
             />
           </section>
+        }
+        {isAuthenticated &&
           <section className="section-large">
             <div className="panel-header">
               <h2>Transactions</h2>
@@ -229,8 +285,11 @@ const IndexPage = () => {
             <TransactionList
               selectedChild = {selectedChild}
               balance = {balance}
+              authClient = {authClient}
+              isAuthenticated = {isAuthenticated}
             />
           </section>
+          }
         </div>
 
       </div>

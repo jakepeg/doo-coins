@@ -27,14 +27,14 @@ function ImageUpload(props) {
   }
 
   function addDefaultSrc(ev){
-    ev.target.src = 'https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_15,w_30/profil_pic_ktj7w8.jpg';
+    ev.target.src = 'https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_15,w_30/profile_e96gd0.png';
   }
 
   return (
     <div className="image-upload">
 
 
-<label for="file">
+<label htmlFor="file">
 <img onError={addDefaultSrc} alt="profile pic" className="profile-img-header" src={`https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_15,w_30/doozone/${props.selectedChild}.jpg`}/>
 </label>
 

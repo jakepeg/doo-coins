@@ -6,6 +6,7 @@ const GoalProgress = (props) => {
 
   const [actor, setActor] = React.useState(null);
   const [goals, setGoals] = React.useState({});
+  const [hasGoal, setHasGoal] = React.useState(false);
   const [goalValue, setGoalValue] = React.useState(null);
   const [goalName, setGoalName] = React.useState(null);
   const [goalId, setGoalId] = React.useState(null);
@@ -26,6 +27,7 @@ const GoalProgress = (props) => {
         setGoalName(info[0].name);
         setGoalValue(parseInt(info[0].value));
         setGoalId(info[0].id);
+        setHasGoal(true);
       } else {
         setGoalName("no goal set");
         setGoalValue(0);
@@ -34,9 +36,20 @@ const GoalProgress = (props) => {
     return false;
   }
 
-  React.useEffect(() => {
+  const initActor = () => {
     import("../declarations/doocoins")
-    .then((module) => {setActor(module.doocoins)})
+    .then((module) => {
+      const actor = module.createActor(module.canisterId, {
+        agentOptions: {
+          identity: props.authClient?.getIdentity(),
+        },
+      });
+      setActor(actor);
+    })
+  };
+
+  React.useEffect(() => {
+    if (props.isAuthenticated) initActor();
   }, [props.selectedChild]);
 
   React.useEffect(() => {
@@ -55,6 +68,7 @@ const GoalProgress = (props) => {
           <button className="claim" onClick={() => props.handleClaimGoal(parseInt(goalId))}>Claim</button>
         }
       </div>
+      {hasGoal &&
       <div className="goal-progress">
         <CircularProgressbar 
           strokeWidth="12" 
@@ -72,6 +86,7 @@ const GoalProgress = (props) => {
         />
         <p className="goal-value">of {goalValue}</p>
       </div>
+      }
     </div>
   );
 };

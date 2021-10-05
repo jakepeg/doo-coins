@@ -5,6 +5,18 @@ const ChildList = (props) => {
   const [actor, setActor] = React.useState(null);
   const [children, setChildren] = React.useState({});
 
+  const initActor = () => {
+    import("../declarations/doocoins")
+    .then((module) => {
+      const actor = module.createActor(module.canisterId, {
+        agentOptions: {
+          identity: props.authClient?.getIdentity(),
+        },
+      });
+      setActor(actor);
+    })
+  };
+
   function getChildren() {
     actor?.getChildren().then((returnedChilren) => {
         const children = Object.values(returnedChilren);
@@ -18,9 +30,8 @@ const ChildList = (props) => {
   }
 
   React.useEffect(() => {
-    import("../declarations/doocoins")
-    .then((module) => {setActor(module.doocoins)})
-  }, []);
+    if (props.isAuthenticated) initActor();
+  }, [props.isAuthenticated]);
 
   React.useEffect(() => {
     getChildren();

@@ -15,10 +15,21 @@ const TaskList = (props) => {
     return false;
   }
 
-  React.useEffect(() => {
+  const initActor = () => {
     import("../declarations/doocoins")
-    .then((module) => {setActor(module.doocoins)})
-  }, []);
+    .then((module) => {
+      const actor = module.createActor(module.canisterId, {
+        agentOptions: {
+          identity: props.authClient?.getIdentity(),
+        },
+      });
+      setActor(actor);
+    })
+  };
+
+  React.useEffect(() => {
+    if (props.isAuthenticated) initActor();
+  }, [props.isAuthenticated]);
 
   React.useEffect(() => {
     getTasks(props.selectedChild);

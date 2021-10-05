@@ -11,10 +11,16 @@ const Header = (props) => {
         <img src={logo} className="logo-img" alt="doo logo" /> <span className="logo-type">DooCoins</span>
       </Link>
       <div className="header-menu">
-      <span className="logo-type">{props.childName}</span>
-        <ImageUpload 
-          selectedChild = {props.selectedChild} 
-        />
+        <span className="logo-type">{props.childName}</span>
+          <ImageUpload 
+            selectedChild = {props.selectedChild} 
+          />
+          {!props.isAuthenticated && 
+            <span className="logo-type" role="button" onClick={() => props.handleLogin()}>Login</span>
+          }
+          {props.isAuthenticated && 
+            <span className="logo-type gray" role="button" onClick={() => props.handleLogout()}>Logout</span>
+          }
       </div>
     </div>
   );
