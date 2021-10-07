@@ -7,10 +7,18 @@ const TransactionList = (props) => {
   const [transactions, setTransactions] = React.useState({});
 
   function getTransactions(child) {
+    // actor?.getTransactions(child).then((returnedTransactions) => {
+    //   const transactions = Object.values(returnedTransactions);
+    //   setTransactions(transactions);
+    //   console.log("transactions = "+transactions)
+    // });
     actor?.getTransactions(child).then((returnedTransactions) => {
-      const transactions = Object.values(returnedTransactions);
-      setTransactions(transactions);
-      console.log("transactions = "+transactions)
+      if ("ok" in returnedTransactions) {
+        const transactions = Object.values(returnedTransactions);
+        setTransactions(transactions);
+      } else {
+        console.error(returnedTransactions.err);
+      }
     });
     return false;
   }

@@ -1,5 +1,4 @@
 import * as React from "react";
-// import ImageUpload from "./ImageUpload";
 
 const AddChild = (props) => {
 
@@ -9,11 +8,6 @@ const AddChild = (props) => {
           <label htmlFor="child_name">
             Name <input type="text" name="child_name" />
           </label>
-
-          {/* <ImageUpload
-          child_id={props.childID}
-         /> */}
-
         <button className="button" type="submit">Add</button>
       </div>
     </form>

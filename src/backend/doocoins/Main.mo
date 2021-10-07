@@ -34,7 +34,7 @@ actor {
     public shared(msg) func addChild(child:Types.ChildCall):async Result.Result<Types.Child,Types.Error>{
         let callerId=msg.caller;
 
-        // Reject AnonymousIdentity
+        // Reject AnonymousIdentity - 2vxsx-fae
         if(Principal.toText(callerId) == "2vxsx-fae") {
             return #err(#NotAuthorized);
         };
@@ -102,7 +102,7 @@ actor {
     public shared(msg) func addTask(task:Types.TaskCall,childId:Text):async Result.Result<[Types.Task],Types.Error>{
         let callerId=msg.caller;
 
-        // Reject AnonymousIdentity
+        // Reject AnonymousIdentity - 2vxsx-fae
         if(Principal.toText(callerId) == "2vxsx-fae") {
             return #err(#NotAuthorized);
         };
@@ -163,7 +163,7 @@ actor {
     public shared(msg) func getChildren():async Result.Result<[Types.Child],Types.Error>{
         let callerId=msg.caller;
 
-        // Reject AnonymousIdentity
+        // Reject AnonymousIdentity - 2vxsx-fae
         if(Principal.toText(callerId) == "2vxsx-fae") {
             return #err(#NotAuthorized);
         };
@@ -185,7 +185,7 @@ actor {
     public shared(msg) func getTasks(childId:Text):async Result.Result<[Types.Task],Types.Error>{
         let callerId = msg.caller;
 
-        // Reject AnonymousIdentity
+        // Reject AnonymousIdentity - 2vxsx-fae
         if(Principal.toText(callerId) == "2vxsx-fae") {
             return #err(#NotAuthorized);
         };
@@ -206,7 +206,7 @@ actor {
     public shared(msg) func addGoal(goal:Types.GoalCall,childId:Text):async Result.Result<[Types.Goal],Types.Error>{
         let callerId=msg.caller;
 
-        // Reject AnonymousIdentity
+        // Reject AnonymousIdentity - 2vxsx-fae
         if(Principal.toText(callerId) == "2vxsx-fae") {
             return #err(#NotAuthorized);
         };
@@ -311,7 +311,7 @@ actor {
     public shared(msg) func approveTask(childId:Text,taskId:Nat,completedDate:Text):async Result.Result<(),Types.Error>{
         let callerId=msg.caller;
 
-        // Reject AnonymousIdentity
+        // Reject AnonymousIdentity - 2vxsx-fae
         if(Principal.toText(callerId) == "2vxsx-fae") {
             return #err(#NotAuthorized);
         };
@@ -375,7 +375,7 @@ actor {
     public shared(msg) func claimGoal(childId:Text,goalId:Nat,completedDate:Text):async Result.Result<(),Types.Error>{
         let callerId=msg.caller;
 
-        // Reject AnonymousIdentity
+        // Reject AnonymousIdentity - 2vxsx-fae
         if(Principal.toText(callerId) == "2vxsx-fae") {
             return #err(#NotAuthorized);
         };
@@ -438,7 +438,7 @@ actor {
     //Get childs current goal
     //Parametes needed: childId
     //----------------------------------------------------------------------------------------------------
-    public  func getCurrentGoal(childId:Text):async Nat{
+    public func getCurrentGoal(childId:Text):async Nat{
         let currentGoalNumber = Trie.find(
             childToCurrentGoal,
             keyText(childId),
@@ -455,7 +455,7 @@ actor {
 
         let callerId=msg.caller;
 
-        // Reject AnonymousIdentity
+        // Reject AnonymousIdentity - 2vxsx-fae
         if(Principal.toText(callerId) == "2vxsx-fae") {
             return #err(#NotAuthorized);
         };
@@ -478,7 +478,7 @@ actor {
     public shared(msg) func updateChild(childId:Text,child:Types.Child):async Result.Result<(),Types.Error> {
         let callerId=msg.caller;
 
-        // Reject AnonymousIdentity
+        // Reject AnonymousIdentity - 2vxsx-fae
         if(Principal.toText(callerId) == "2vxsx-fae") {
             return #err(#NotAuthorized);
         };
@@ -534,7 +534,7 @@ actor {
         return (myTransactionsFormatted,currentPointer);
     };
 
-    public  func getBalance(childId:Text):async Nat{
+    public func getBalance(childId:Text):async Nat{
                 let currentBalance = Trie.find(
                     childToBalance,
                     keyText(childId),

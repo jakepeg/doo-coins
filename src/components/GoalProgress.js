@@ -16,12 +16,19 @@ const GoalProgress = (props) => {
       const goals = Object.values(returnedGoals);
       setGoals(goals);
     });
+    // actor?.getGoals(child.then((returnedGoals) => {
+    //   if ("ok" in returnedGoals) {
+    //     const goals = Object.values(returnedGoals);
+    //     setGoals(goals);
+    //   } else {
+    //     console.error(returnedGoals.err);
+    //   }
+    // }))
     return false;
   }
 
   function getCurrentGoal(child) {
     actor?.getCurrentGoal(child).then((returnedGoal) => {
-      console.log("returned goal = "+returnedGoal);
       if(returnedGoal > 0) {
         let info = goals[0].filter(x => x.id === returnedGoal);
         setGoalName(info[0].name);
@@ -33,6 +40,22 @@ const GoalProgress = (props) => {
         setGoalValue(0);
       }
     });
+    // actor?.getCurrentGoal(child).then((returnedGoal) => {
+    //   if ("ok" in returnedGoal) {
+    //     if(returnedGoal > 0) {
+    //       let info = goals[0].filter(x => x.id === returnedGoal);
+    //       setGoalName(info[0].name);
+    //       setGoalValue(parseInt(info[0].value));
+    //       setGoalId(info[0].id);
+    //       setHasGoal(true);
+    //     } else {
+    //       setGoalName("no goal set");
+    //       setGoalValue(0);
+    //     }
+    //   } else {
+    //     console.error(returnedGoal.err);
+    //   }
+    // });
     return false;
   }
 

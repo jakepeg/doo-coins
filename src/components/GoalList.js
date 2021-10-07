@@ -7,10 +7,17 @@ const GoalList = (props) => {
   const [goals, setGoals] = React.useState({});
 
   function getGoals(childId) {
+    // actor?.getGoals(childId).then((returnedGoals) => {
+    //   const goals = Object.values(returnedGoals);
+    //   setGoals(goals);
+    // });
     actor?.getGoals(childId).then((returnedGoals) => {
-      const goals = Object.values(returnedGoals);
-      console.log(goals)
-      setGoals(goals);
+      if ("ok" in returnedGoals) {
+        const goals = Object.values(returnedGoals);
+        setGoals(goals);
+      } else {
+        console.error(returnedGoals.err);
+      }
     });
     return false;
   }

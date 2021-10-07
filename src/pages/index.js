@@ -70,6 +70,13 @@ const IndexPage = () => {
     actor?.getBalance(selectedChild).then((returnedBalance) => {
       setBalance(parseInt(returnedBalance));
     });
+    // actor?.getBalance(selectedChild).then((returnedBalance) => {
+    //   if ("ok" in returnedBalance) {
+    //     setBalance(parseInt(returnedBalance));
+    //   } else {
+    //     console.error(returnedBalance.err);
+    //   }
+    // });
     return false;
   }
 
@@ -78,10 +85,16 @@ const IndexPage = () => {
     if (r == true) {
       let dateNum = Math.floor(Date.now() / 1000);
       let date = dateNum.toString();
-      actor?.approveTask(selectedChild,task_id,date).then(() => {
-        setTaskComplete(parseInt(task_id));
+      // actor?.approveTask(selectedChild,task_id,date).then(() => {
+      //   setTaskComplete(parseInt(task_id));
+      // });
+      actor?.approveTask(selectedChild,task_id,date).then((returnedApproveTask) => {
+        if ("ok" in returnedApproveTask) {
+          setTaskComplete(parseInt(task_id));
+        } else {
+          console.error(returnedApproveTask.err);
+        }
       });
-
     } else {
       console.log("You pressed cancel!");
     }
@@ -92,11 +105,21 @@ const IndexPage = () => {
     const inputs = e.target.querySelectorAll("input");
     const child_name = e.target.querySelector('input[name="child_name"]').value;
     const child_object = {name:child_name}
-    actor?.addChild(child_object).then(() => {
-      setNewChild(child_name);
-      inputs.forEach((input) => {
-        input.value = "";
-      });
+    // actor?.addChild(child_object).then(() => {
+    //   setNewChild(child_name);
+    //   inputs.forEach((input) => {
+    //     input.value = "";
+    //   });
+    // });
+    actor?.addChild(child_object).then((returnedAddChild) => {
+      if ("ok" in returnedAddChild) {
+        setNewChild(child_name);
+        inputs.forEach((input) => {
+          input.value = "";
+        });
+      } else {
+        console.error(returnedAddChild.err);
+      }
     });
     return false;
   }
@@ -107,11 +130,21 @@ const IndexPage = () => {
     const task_name = e.target.querySelector('input[name="task_name"]').value;
     const task_value = parseInt(e.target.querySelector('input[name="task_value"]').value);
     const task_object = {name:task_name,value:task_value};
-    actor?.addTask(task_object,selectedChild).then(() => {
-      inputs.forEach((input) => {
-        input.value = "";
-      });
-      setNewTask(task_name);
+    // actor?.addTask(task_object,selectedChild).then(() => {
+    //   inputs.forEach((input) => {
+    //     input.value = "";
+    //   });
+    //   setNewTask(task_name);
+    // });
+    actor?.addTask(task_object,selectedChild).then((returnedAddTask) => {
+      if ("ok" in returnedAddTask) {
+        setNewTask(task_name);
+        inputs.forEach((input) => {
+          input.value = "";
+        });
+      } else {
+        console.error(returnedAddTask.err);
+      }
     });
     return false;
   }
@@ -122,20 +155,37 @@ const IndexPage = () => {
     const goal_name = e.target.querySelector('input[name="goal_name"]').value;
     const goal_value = parseInt(e.target.querySelector('input[name="goal_value"]').value);
     const goal_object = {name:goal_name,value:goal_value};
-    actor?.addGoal(goal_object,selectedChild).then(() => {
-      inputs.forEach((input) => {
-        input.value = "";
-      });
-      setNewGoal(goal_name);
+    // actor?.addGoal(goal_object,selectedChild).then(() => {
+    //   inputs.forEach((input) => {
+    //     input.value = "";
+    //   });
+    //   setNewGoal(goal_name);
+    // });
+    actor?.addGoal(goal_object,selectedChild).then((returnedAddGoal) => {
+      if ("ok" in returnedAddGoal) {
+        setNewGoal(goal_name);
+        inputs.forEach((input) => {
+          input.value = "";
+        });
+      } else {
+        console.error(returnedAddGoal.err);
+      }
     });
     return false;
   }
 
   function handleSetGoal(goal_id) {
-    actor?.currentGoal(selectedChild,goal_id).then(() => {
-      console.log("new current goal = "+goal_id);
-      setCurrentGoal(goal_id);
-      ref.current.toggle();
+    // actor?.currentGoal(selectedChild,goal_id).then(() => {
+    //   setCurrentGoal(goal_id);
+    //   ref.current.toggle();
+    // });
+    actor?.currentGoal(selectedChild,goal_id).then((returnedCurrentGoal) => {
+      if ("ok" in returnedCurrentGoal) {
+        setCurrentGoal(goal_id);
+        ref.current.toggle();
+      } else {
+        console.error(returnedCurrentGoal.err);
+      }
     });
   }
 
@@ -144,8 +194,15 @@ const IndexPage = () => {
     if (r == true) {
       let dateNum = Math.floor(Date.now() / 1000);
       let date = dateNum.toString();
-      actor?.claimGoal(selectedChild,goal_id,date).then(() => {
-        setGoalClaimed(parseInt(goal_id));
+      // actor?.claimGoal(selectedChild,goal_id,date).then(() => {
+      //   setGoalClaimed(parseInt(goal_id));
+      // });
+      actor?.claimGoal(selectedChild,goal_id,date).then((returnedClaimGoal) => {
+        if ("ok" in returnedClaimGoal) {
+          setGoalClaimed(parseInt(goal_id));
+        } else {
+          console.error(returnedClaimGoal.err);
+        }
       });
     } else {
       console.log("You pressed cancel!");

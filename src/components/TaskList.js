@@ -8,9 +8,17 @@ const TaskList = (props) => {
 
   function getTasks(child) {
     console.log("getTasks called for child id: "+child);
+    // actor?.getTasks(child).then((returnedTasks) => {
+    //   const tasks = Object.values(returnedTasks);
+    //   setTasks(tasks);
+    // });
     actor?.getTasks(child).then((returnedTasks) => {
-      const tasks = Object.values(returnedTasks);
-      setTasks(tasks);
+      if ("ok" in returnedTasks) {
+        const tasks = Object.values(returnedTasks);
+        setTasks(tasks);
+      } else {
+        console.error(returnedTasks.err);
+      }
     });
     return false;
   }

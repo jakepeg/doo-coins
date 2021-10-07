@@ -17,14 +17,26 @@ const ChildList = (props) => {
     })
   };
 
+  // function getChildren() {
+  //   actor?.getChildren().then((returnedChilren) => {
+  //       const children = Object.values(returnedChilren);
+  //       setChildren(children);
+  //   });
+  //    return false;
+  // }
+
   function getChildren() {
     actor?.getChildren().then((returnedChilren) => {
+      if ("ok" in returnedChilren) {
         const children = Object.values(returnedChilren);
         setChildren(children);
+      } else {
+        console.error(returnedChilren.err);
+      }
     });
-     return false;
   }
 
+  
   function addDefaultSrc(ev){
     ev.target.src = 'https://res.cloudinary.com/jakepeg/image/upload/c_scale,r_25,w_50/profil_pic_ktj7w8.jpg';
   }
