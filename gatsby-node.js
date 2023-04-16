@@ -34,6 +34,7 @@ function initCanisterIds() {
 initCanisterIds();
 
 const isDevelopment = process.env.NODE_ENV !== "production";
+let internet_identity_canister = process.env.INTERNET_IDENTITY_CANISTER_ID
 
 exports.onCreateWebpackConfig = ({ stage, actions }) => {
   actions.setWebpackConfig({
@@ -42,7 +43,7 @@ exports.onCreateWebpackConfig = ({ stage, actions }) => {
         NODE_ENV: "development",
         DOOCOINS_CANISTER_ID: canisters["doocoins"],
         II_URL: isDevelopment
-        ? "http://localhost:8000?canisterId=rkp4c-7iaaa-aaaaa-aaaca-cai#authorize"
+        ? `http://localhost:8000?canisterId=${internet_identity_canister}#authorize`
         : "https://identity.ic0.app/#authorize",
       }),
     ],
