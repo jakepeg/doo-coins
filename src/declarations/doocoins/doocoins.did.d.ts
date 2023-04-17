@@ -1,4 +1,6 @@
 import type { Principal } from '@dfinity/principal';
+import type { ActorMethod } from '@dfinity/agent';
+
 export interface Child { 'id' : string, 'name' : string }
 export interface ChildCall { 'name' : string }
 export type Error = { 'NotFound' : null } |
@@ -29,22 +31,18 @@ export interface Transaction {
   'name' : string,
 }
 export interface _SERVICE {
-  'addChild' : (arg_0: ChildCall) => Promise<Result_5>,
-  'addGoal' : (arg_0: GoalCall, arg_1: string) => Promise<Result_3>,
-  'addTask' : (arg_0: TaskCall, arg_1: string) => Promise<Result_2>,
-  'approveTask' : (arg_0: string, arg_1: bigint, arg_2: string) => Promise<
-      Result
-    >,
-  'claimGoal' : (arg_0: string, arg_1: bigint, arg_2: string) => Promise<
-      Result
-    >,
-  'currentGoal' : (arg_0: string, arg_1: bigint) => Promise<Result>,
-  'getBalance' : (arg_0: string) => Promise<bigint>,
-  'getChildren' : () => Promise<Result_4>,
-  'getCurrentGoal' : (arg_0: string) => Promise<bigint>,
-  'getGoals' : (arg_0: string) => Promise<Result_3>,
-  'getTasks' : (arg_0: string) => Promise<Result_2>,
-  'getTransactions' : (arg_0: string) => Promise<Result_1>,
-  'updateChild' : (arg_0: string, arg_1: Child) => Promise<Result>,
-  'updateTask' : (arg_0: string, arg_1: bigint, arg_2: Task) => Promise<Result>,
+  'addChild' : ActorMethod<[ChildCall], Result_5>,
+  'addGoal' : ActorMethod<[GoalCall, string], Result_3>,
+  'addTask' : ActorMethod<[TaskCall, string], Result_2>,
+  'approveTask' : ActorMethod<[string, bigint, string], Result>,
+  'claimGoal' : ActorMethod<[string, bigint, string], Result>,
+  'currentGoal' : ActorMethod<[string, bigint], Result>,
+  'getBalance' : ActorMethod<[string], bigint>,
+  'getChildren' : ActorMethod<[], Result_4>,
+  'getCurrentGoal' : ActorMethod<[string], bigint>,
+  'getGoals' : ActorMethod<[string], Result_3>,
+  'getTasks' : ActorMethod<[string], Result_2>,
+  'getTransactions' : ActorMethod<[string], Result_1>,
+  'updateChild' : ActorMethod<[string, Child], Result>,
+  'updateTask' : ActorMethod<[string, bigint, Task], Result>,
 }

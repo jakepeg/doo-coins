@@ -1,9 +1,11 @@
 import * as React from "react";
 import play from '../images/play.svg';
+import LoadingSpinner from "./LoadingSpinner";
 
 const ChildList = (props) => {
   const [actor, setActor] = React.useState(null);
   const [children, setChildren] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const initActor = () => {
     import("../declarations/doocoins")
@@ -26,10 +28,14 @@ const ChildList = (props) => {
   // }
 
   function getChildren() {
+    console.log("loading children");
+    setIsLoading(true);
     actor?.getChildren().then((returnedChilren) => {
       if ("ok" in returnedChilren) {
         const children = Object.values(returnedChilren);
         setChildren(children);
+        console.log("children loaded");
+        setIsLoading(false);
       } else {
         console.error(returnedChilren.err);
       }
@@ -51,6 +57,7 @@ const ChildList = (props) => {
 
   return (
       <>
+      {isLoading ? <LoadingSpinner /> : null}
         {children.length > 0 &&
           children[0].map(child => (
             <div role="button" className={props.selectedChild === child.id ? "active-row" : "row"} key={child.id} onClick={() => props.getChild(child.id, child.name)} onKeyDown={() => props.getChild(child.id, child.name)}>

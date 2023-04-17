@@ -1,0 +1,57 @@
+// Version: 1.0.0
+type AssocList<K, V> = List<(K, V)>;
+type AssocList__1<K, V> = AssocList<K, V>;
+type Branch<K, V> = {left : Trie<K, V>; right : Trie<K, V>; size : Nat};
+type Child = {id : Text; name : Text};
+type Goal = {id : Nat; name : Text; value : Nat};
+type Hash = Nat32;
+type Key<K> = {hash : Hash; key : K};
+type Leaf<K, V> = {keyvals : AssocList__1<Key<K>, V>; size : Nat};
+type List<T> = ?(T, List<T>);
+type Task = {id : Nat; name : Text; value : Nat};
+type Transaction =
+  {
+    completedDate : Text;
+    id : Nat;
+    name : Text;
+    transactionType : Text;
+    value : Nat
+  };
+type Trie<K, V> = {#branch : Branch<K, V>; #empty; #leaf : Leaf<K, V>};
+actor {
+  stable var childNumber : Nat;
+  stable var childToBalance :
+    {#branch : Branch<Text, Nat>; #empty; #leaf : Leaf<Text, Nat>};
+  stable var childToCurrentGoal :
+    {#branch : Branch<Text, Nat>; #empty; #leaf : Leaf<Text, Nat>};
+  stable var childToGoalNumber :
+    {#branch : Branch<Text, Nat>; #empty; #leaf : Leaf<Text, Nat>};
+  stable var childToGoals :
+    {
+      #branch : Branch<Text, Trie<Nat, Goal>>;
+      #empty;
+      #leaf : Leaf<Text, Trie<Nat, Goal>>
+    };
+  stable var childToTaskNumber :
+    {#branch : Branch<Text, Nat>; #empty; #leaf : Leaf<Text, Nat>};
+  stable var childToTasks :
+    {
+      #branch : Branch<Text, Trie<Nat, Task>>;
+      #empty;
+      #leaf : Leaf<Text, Trie<Nat, Task>>
+    };
+  stable var childToTransactionNumber :
+    {#branch : Branch<Text, Nat>; #empty; #leaf : Leaf<Text, Nat>};
+  stable var childToTransactions :
+    {
+      #branch : Branch<Text, Trie<Nat, Transaction>>;
+      #empty;
+      #leaf : Leaf<Text, Trie<Nat, Transaction>>
+    };
+  stable var profiles :
+    {
+      #branch : Branch<Principal, Trie<Text, Child>>;
+      #empty;
+      #leaf : Leaf<Principal, Trie<Text, Child>>
+    }
+};

@@ -66,6 +66,7 @@ const IndexPage = () => {
     return false;
   }
 
+  // API call getBalance
   function getBalance() {
     actor?.getBalance(selectedChild).then((returnedBalance) => {
       setBalance(parseInt(returnedBalance));
@@ -88,6 +89,7 @@ const IndexPage = () => {
       // actor?.approveTask(selectedChild,task_id,date).then(() => {
       //   setTaskComplete(parseInt(task_id));
       // });
+      // API call approveTask
       actor?.approveTask(selectedChild,task_id,date).then((returnedApproveTask) => {
         if ("ok" in returnedApproveTask) {
           setTaskComplete(parseInt(task_id));
@@ -111,6 +113,7 @@ const IndexPage = () => {
     //     input.value = "";
     //   });
     // });
+    // API call addChild
     actor?.addChild(child_object).then((returnedAddChild) => {
       if ("ok" in returnedAddChild) {
         setNewChild(child_name);
@@ -136,6 +139,7 @@ const IndexPage = () => {
     //   });
     //   setNewTask(task_name);
     // });
+    // API call addTask
     actor?.addTask(task_object,selectedChild).then((returnedAddTask) => {
       if ("ok" in returnedAddTask) {
         setNewTask(task_name);
@@ -161,6 +165,7 @@ const IndexPage = () => {
     //   });
     //   setNewGoal(goal_name);
     // });
+    // API call addGoal
     actor?.addGoal(goal_object,selectedChild).then((returnedAddGoal) => {
       if ("ok" in returnedAddGoal) {
         setNewGoal(goal_name);
@@ -179,6 +184,7 @@ const IndexPage = () => {
     //   setCurrentGoal(goal_id);
     //   ref.current.toggle();
     // });
+    // API call currentGoal
     actor?.currentGoal(selectedChild,goal_id).then((returnedCurrentGoal) => {
       if ("ok" in returnedCurrentGoal) {
         setCurrentGoal(goal_id);
@@ -197,6 +203,7 @@ const IndexPage = () => {
       // actor?.claimGoal(selectedChild,goal_id,date).then(() => {
       //   setGoalClaimed(parseInt(goal_id));
       // });
+      // API call claimGoal
       actor?.claimGoal(selectedChild,goal_id,date).then((returnedClaimGoal) => {
         if ("ok" in returnedClaimGoal) {
           setGoalClaimed(parseInt(goal_id));

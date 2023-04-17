@@ -1,10 +1,12 @@
 import * as React from "react";
+import LoadingSpinner from "./LoadingSpinner";
 import play from '../images/play.svg';
 import dc from '../images/dc.svg';
 
 const TaskList = (props) => {
   const [actor, setActor] = React.useState(null);
   const [tasks, setTasks] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function getTasks(child) {
     console.log("getTasks called for child id: "+child);
@@ -12,10 +14,12 @@ const TaskList = (props) => {
     //   const tasks = Object.values(returnedTasks);
     //   setTasks(tasks);
     // });
+    setIsLoading(true);
     actor?.getTasks(child).then((returnedTasks) => {
       if ("ok" in returnedTasks) {
         const tasks = Object.values(returnedTasks);
         setTasks(tasks);
+        setIsLoading(false);
       } else {
         console.error(returnedTasks.err);
       }
@@ -45,6 +49,7 @@ const TaskList = (props) => {
 
   return (
       <>
+            {isLoading ? <LoadingSpinner /> : null}
             {tasks.length > 0 &&
                 tasks[0].map(task => (
                   <div role="button" className="row" key={parseInt(task.id)} onClick={() => props.handleTaskComplete(parseInt(task.id))} onKeyDown={() => props.handleTaskComplete(parseInt(task.id))}>

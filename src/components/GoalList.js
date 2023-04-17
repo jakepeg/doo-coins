@@ -1,20 +1,24 @@
 import * as React from "react";
+import LoadingSpinner from "./LoadingSpinner";
 import play from '../images/play.svg';
 import dc from '../images/dc.svg';
 
 const GoalList = (props) => {
   const [actor, setActor] = React.useState(null);
   const [goals, setGoals] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function getGoals(childId) {
     // actor?.getGoals(childId).then((returnedGoals) => {
     //   const goals = Object.values(returnedGoals);
     //   setGoals(goals);
     // });
+    setIsLoading(true);
     actor?.getGoals(childId).then((returnedGoals) => {
       if ("ok" in returnedGoals) {
         const goals = Object.values(returnedGoals);
         setGoals(goals);
+        setIsLoading(false);
       } else {
         console.error(returnedGoals.err);
       }
@@ -44,6 +48,7 @@ const GoalList = (props) => {
 
   return (
       <>
+            {isLoading ? <LoadingSpinner /> : null}
             {goals.length > 0 &&
                 goals[0].map(goal => (
                   <div role="button" className="row" key={parseInt(goal.id)} onClick={() => props.handleSetGoal(parseInt(goal.id))} onKeyDown={() => props.handleSetGoal(parseInt(goal.id))}>

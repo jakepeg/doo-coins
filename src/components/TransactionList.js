@@ -1,10 +1,12 @@
 import * as React from "react";
+import LoadingSpinner from "./LoadingSpinner";
 import Moment from 'react-moment';
 import dc from '../images/dc.svg';
 
 const TransactionList = (props) => {
   const [actor, setActor] = React.useState(null);
   const [transactions, setTransactions] = React.useState({});
+  const [isLoading, setIsLoading] = React.useState(false);
 
   function getTransactions(child) {
     // actor?.getTransactions(child).then((returnedTransactions) => {
@@ -12,10 +14,12 @@ const TransactionList = (props) => {
     //   setTransactions(transactions);
     //   console.log("transactions = "+transactions)
     // });
+    setIsLoading(true);
     actor?.getTransactions(child).then((returnedTransactions) => {
       if ("ok" in returnedTransactions) {
         const transactions = Object.values(returnedTransactions);
         setTransactions(transactions);
+        setIsLoading(false);
       } else {
         console.error(returnedTransactions.err);
       }
@@ -45,6 +49,7 @@ const TransactionList = (props) => {
 
   return (
       <>
+            {isLoading ? <LoadingSpinner /> : null}
             {transactions.length > 0 &&
               transactions[0].reverse().map(transaction => (
                   <div className={transaction.transactionType} key={parseInt(transaction.id)}>
