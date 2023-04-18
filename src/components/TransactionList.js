@@ -9,11 +9,8 @@ const TransactionList = (props) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   function getTransactions(child) {
-    // actor?.getTransactions(child).then((returnedTransactions) => {
-    //   const transactions = Object.values(returnedTransactions);
-    //   setTransactions(transactions);
-    //   console.log("transactions = "+transactions)
-    // });
+    if (child) {
+    console.log("getTransactions called for child id: "+child);
     setIsLoading(true);
     actor?.getTransactions(child).then((returnedTransactions) => {
       if ("ok" in returnedTransactions) {
@@ -26,6 +23,7 @@ const TransactionList = (props) => {
     });
     return false;
   }
+}
 
   const initActor = () => {
     import("../declarations/doocoins")

@@ -9,21 +9,20 @@ const GoalList = (props) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   function getGoals(childId) {
-    // actor?.getGoals(childId).then((returnedGoals) => {
-    //   const goals = Object.values(returnedGoals);
-    //   setGoals(goals);
-    // });
-    setIsLoading(true);
-    actor?.getGoals(childId).then((returnedGoals) => {
-      if ("ok" in returnedGoals) {
-        const goals = Object.values(returnedGoals);
-        setGoals(goals);
-        setIsLoading(false);
-      } else {
-        console.error(returnedGoals.err);
-      }
-    });
-    return false;
+    if (childId) {
+      console.log("getGoals called for child id: "+childId);
+      setIsLoading(true);
+      actor?.getGoals(childId).then((returnedGoals) => {
+        if ("ok" in returnedGoals) {
+          const goals = Object.values(returnedGoals);
+          setGoals(goals);
+          setIsLoading(false);
+        } else {
+          console.error(returnedGoals.err);
+        }
+      });
+      return false;
+    }
   }
 
   const initActor = () => {

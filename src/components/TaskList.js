@@ -9,11 +9,8 @@ const TaskList = (props) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   function getTasks(child) {
+    if (child) {
     console.log("getTasks called for child id: "+child);
-    // actor?.getTasks(child).then((returnedTasks) => {
-    //   const tasks = Object.values(returnedTasks);
-    //   setTasks(tasks);
-    // });
     setIsLoading(true);
     actor?.getTasks(child).then((returnedTasks) => {
       if ("ok" in returnedTasks) {
@@ -26,6 +23,7 @@ const TaskList = (props) => {
     });
     return false;
   }
+}
 
   const initActor = () => {
     import("../declarations/doocoins")
