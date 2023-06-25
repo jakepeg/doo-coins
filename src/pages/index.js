@@ -71,13 +71,6 @@ const IndexPage = () => {
     actor?.getBalance(selectedChild).then((returnedBalance) => {
       setBalance(parseInt(returnedBalance));
     });
-    // actor?.getBalance(selectedChild).then((returnedBalance) => {
-    //   if ("ok" in returnedBalance) {
-    //     setBalance(parseInt(returnedBalance));
-    //   } else {
-    //     console.error(returnedBalance.err);
-    //   }
-    // });
     return false;
   }
 
@@ -86,9 +79,6 @@ const IndexPage = () => {
     if (r == true) {
       let dateNum = Math.floor(Date.now() / 1000);
       let date = dateNum.toString();
-      // actor?.approveTask(selectedChild,task_id,date).then(() => {
-      //   setTaskComplete(parseInt(task_id));
-      // });
       // API call approveTask
       actor?.approveTask(selectedChild,task_id,date).then((returnedApproveTask) => {
         if ("ok" in returnedApproveTask) {
@@ -107,12 +97,6 @@ const IndexPage = () => {
     const inputs = e.target.querySelectorAll("input");
     const child_name = e.target.querySelector('input[name="child_name"]').value;
     const child_object = {name:child_name}
-    // actor?.addChild(child_object).then(() => {
-    //   setNewChild(child_name);
-    //   inputs.forEach((input) => {
-    //     input.value = "";
-    //   });
-    // });
     // API call addChild
     actor?.addChild(child_object).then((returnedAddChild) => {
       if ("ok" in returnedAddChild) {
@@ -133,12 +117,6 @@ const IndexPage = () => {
     const task_name = e.target.querySelector('input[name="task_name"]').value;
     const task_value = parseInt(e.target.querySelector('input[name="task_value"]').value);
     const task_object = {name:task_name,value:task_value};
-    // actor?.addTask(task_object,selectedChild).then(() => {
-    //   inputs.forEach((input) => {
-    //     input.value = "";
-    //   });
-    //   setNewTask(task_name);
-    // });
     // API call addTask
     actor?.addTask(task_object,selectedChild).then((returnedAddTask) => {
       if ("ok" in returnedAddTask) {
@@ -159,12 +137,6 @@ const IndexPage = () => {
     const goal_name = e.target.querySelector('input[name="goal_name"]').value;
     const goal_value = parseInt(e.target.querySelector('input[name="goal_value"]').value);
     const goal_object = {name:goal_name,value:goal_value};
-    // actor?.addGoal(goal_object,selectedChild).then(() => {
-    //   inputs.forEach((input) => {
-    //     input.value = "";
-    //   });
-    //   setNewGoal(goal_name);
-    // });
     // API call addGoal
     actor?.addGoal(goal_object,selectedChild).then((returnedAddGoal) => {
       if ("ok" in returnedAddGoal) {
@@ -180,10 +152,6 @@ const IndexPage = () => {
   }
 
   function handleSetGoal(goal_id) {
-    // actor?.currentGoal(selectedChild,goal_id).then(() => {
-    //   setCurrentGoal(goal_id);
-    //   ref.current.toggle();
-    // });
     // API call currentGoal
     actor?.currentGoal(selectedChild,goal_id).then((returnedCurrentGoal) => {
       if ("ok" in returnedCurrentGoal) {
@@ -200,9 +168,6 @@ const IndexPage = () => {
     if (r == true) {
       let dateNum = Math.floor(Date.now() / 1000);
       let date = dateNum.toString();
-      // actor?.claimGoal(selectedChild,goal_id,date).then(() => {
-      //   setGoalClaimed(parseInt(goal_id));
-      // });
       // API call claimGoal
       actor?.claimGoal(selectedChild,goal_id,date).then((returnedClaimGoal) => {
         if ("ok" in returnedClaimGoal) {

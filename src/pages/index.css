@@ -83,10 +83,14 @@ section {
 
 .section-medium {
   width: 300px;
+  max-height: 600px;
+  overflow: auto;
 }
 
 .section-large {
   width: 350px;
+  max-height: 600px;
+  overflow: auto;
 }
 
 .fixed-height {
